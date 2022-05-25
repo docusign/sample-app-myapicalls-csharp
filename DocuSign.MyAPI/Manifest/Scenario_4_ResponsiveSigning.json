@@ -1,0 +1,154 @@
+{
+  "name": "ResponsiveSigning",
+  "title": "Responsive Signing",
+  "shortDescription": "Convert a file to HTML for&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/responsive/\" target = \"_blank\">responsive signing</a>",
+  "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">Envelopes</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">Remote signing</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/responsive/\" target = \"_blank\">Responsive signing</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">Tabs</a></li></ul>",
+  "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/\" target = \"_blank\">Envelopes:create</a> call defines the envelope, including the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">document</a> to be converted to HTML. The HTML version is scalable, making it easier for the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipient</a> to view and sign on a mobile device. After the recipient has signed the HTML version, the completed document is converted to PDF. The request also specifies a signature tab whose position is based on <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\" target = \"_blank\">anchor text</a>. When this request is sent, the envelope is created and immediately sent to the signer, whose name and email are included in the call.</p>",
+  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need a file that you can select to use as the document to be converted to HTML and signed.</p><h2>Scenario execution instructions</h2><h3><strong>To execute the API call</strong></h3><p>Do either of the following:</p><ul><li>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</li><li>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</li></ul><h3><strong>To execute the API call multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol>",
+  "categories": [
+    "eSignature REST API"
+  ],
+  "areas": [
+    "Envelope",
+    "Remote Signing",
+    "Responsive Signing",
+    "Tabs"
+  ],
+  "steps": [
+    {
+      "name": "ResponsiveSigning_Step_1",
+      "title": "Step 1: Create an envelope containing a signable HTML document",
+      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "signerName",
+          "type": "string",
+          "defaultValue": "Test Signer Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].name",
+          "title": "Signer name",
+          "note": "The name of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipient</a> who will sign the document."
+        },
+        {
+          "name": "signerEmail",
+          "type": "string",
+          "defaultValue": "example@email.com",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].email",
+          "title": "Signer email",
+          "note": "The signer&rsquo;s email address. The envelope will be sent to this address."
+        },
+        {
+          "name": "document1",
+          "type": "file",
+          "defaultValue": "",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "documents[0].documentBase64;documents[0].name;documents[0].fileExtension",
+          "title": "Document",
+          "note": "A <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">document</a> that will be converted to HTML and displayed for the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">envelope</a> recipient to sign. Most common file types are supported."
+        },
+        {
+          "name": "docname",
+          "type": "string",
+          "defaultValue": "Test Document",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "documents[0].name",
+          "title": "Document name",
+          "note": "A name to identify the document. This name will appear in the email that is sent to the recipient."
+        },
+        {
+          "name": "anchorString",
+          "type": "string",
+          "defaultValue": "Signature",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorString",
+          "title": "Anchor string",
+          "note": "A word or phrase in the selected file that identifies the area where the signature <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">tab</a> should appear. This is the <em>anchor</em> component of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\" target = \"_blank\">anchor tagging</a> feature. This value is not case-sensitive. <strong>Note:</strong> If the value entered here does not exist in the selected document, an API error response will be returned."
+        },
+        {
+          "name": "anchorXOffset",
+          "type": "string",
+          "defaultValue": "36",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorXOffset",
+          "title": "X offset",
+          "note": "The number of points to the right of the anchor string (defined above) for placement of the signature tab. A point is equal to one 72nd of an inch. The position specified here applies to the completed PDF version of the document, not the HTML version."
+        },
+        {
+          "name": "anchorYOffset",
+          "type": "string",
+          "defaultValue": "0",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorYOffset",
+          "title": "Y offset",
+          "note": "The number of points below the anchor string (defined above) for placement of the signature tab. A point is equal to one 72nd of an inch. The position specified here applies to the completed PDF version of the document, not the HTML version."
+        }
+      ],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          }
+        ],
+        "bodyTemplate": {
+          "emailSubject": "Please sign this document set",
+          "documents": [
+            {
+              "htmlDefinition": {
+                "source": "document"
+              },
+              "documentBase64": "[document1]",
+              "name": "[docname]",
+              "fileExtension": "[ext]",
+              "documentId": "1"
+            }
+          ],
+          "recipients": {
+            "signers": [
+              {
+                "tabs": {
+                  "signHereTabs": [
+                    {
+                      "stampType": "signature",
+                      "name": "SignHere",
+                      "tabLabel": "signatureTab",
+                      "scaleValue": "1",
+                      "optional": "false",
+                      "documentId": "1",
+                      "recipientId": "1",
+                      "pageNumber": "1",
+                      "anchorString": "[anchorString]",
+                      "anchorXOffset": "[anchorXOffset]",
+                      "anchorYOffset": "[anchorYOffset]",
+                      "anchorHorizontalAlignment": "Left",
+                      "anchorIgnoreIfNotPresent": "false"
+                    }
+                  ]
+                },
+                "email": "[signerEmail1]",
+                "name": "[signerName1]",
+                "recipientId": "1",
+                "routingOrder": "1"
+              }
+            ]
+          },
+          "status": "sent"
+        }
+      }
+    }
+  ]
+}

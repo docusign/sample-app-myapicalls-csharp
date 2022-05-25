@@ -1,0 +1,36 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="card"  *ngIf="parameterPrompts.length > 0">
+    <div class="card__header">
+      <h2 class="card__title" translate>EXECUTE.PARAMETERS.TITLE</h2>
+      <p
+        class="card__subtitle"
+        translate
+        [innerHTML]="'EXECUTE.PARAMETERS.TEXT' | translate"
+      ></p>
+    </div>
+    <div
+      formArrayName="parametersPrompts"
+      *ngFor="let parameterGroup of parameterPromptsGrouped; let i = index"
+      class="form-row"
+    >
+      <ng-container [formGroupName]="i">
+        <app-parameter-control
+          *ngFor="let parameter of parameterGroup.parameters"
+          [parameter]="parameter"
+          [form]="getGroupeControls(i)"
+        ></app-parameter-control
+      ></ng-container>
+    </div>
+  </div>
+  <div class="form-row">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="scope === 'Scenario'"
+      [disabled]="!(form.valid && (isUserLoggedIn() | async))"
+    >
+      {{ "EXECUTE.EXECUTE" | translate }}
+    </button>
+  </div>
+</form>

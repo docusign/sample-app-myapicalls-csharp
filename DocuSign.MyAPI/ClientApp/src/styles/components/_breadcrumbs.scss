@@ -1,0 +1,31 @@
+.breadcrumbs {
+    &__list {
+      @extend %list-reset;
+      display: flex;
+      align-items: center;
+    }
+  
+    &__link {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: $font-weight-black;
+      color: $body-60;
+      text-decoration: none;
+  
+      &::after {
+        display: inline-block;
+        margin: 0 5px;
+        content: "/";
+      }
+  
+      &--disabled {
+        pointer-events: none;
+        color: $body;
+        cursor: default;
+  
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }

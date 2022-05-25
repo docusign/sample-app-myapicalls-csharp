@@ -1,0 +1,170 @@
+{
+  "name": "PhoneAuthentication",
+  "title": "Phone Authentication",
+  "shortDescription": "Send an envelope and require&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/auth/#phone\" target = \"_blank\">phone authentication</a>&nbsp;for the recipient",
+  "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">Envelopes</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/auth/#phone\" target = \"_blank\">Phone authentication</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">Remote signing</a></li></ul>",
+  "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/accounts/identityverifications/list/\" target = \"_blank\">IdentityVerifications:list</a> call retrieves a list of identity verification workflows that are available to your account. If phone authentication is available, the response will include a workflow ID for this feature.</p><h3><strong>Step 2</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/\" target = \"_blank\">Envelopes:create</a> call defines the envelope. The request&rsquo;s <code>workflowId</code> is automatically populated with the value returned by the <code>IdentityVerifications:list</code> call. The recipient information supplied in this call includes an email address for envelope delivery, and a country code and phone number for authentication. When this call is executed, the envelope is immediately emailed to the recipient. After selecting a link in the message, the recipient is routed to a page where they can select authentication via phone call or text message. An authentication code is then sent by the selected method to the number supplied in the API call. After the recipient enters the authentication code, they can sign the document.</p>",
+  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need:</p><ul><li>Phone authentication enabled for your account. If it&rsquo;s enabled, you&rsquo;ll see <strong>Phone Authentication</strong> listed in your account&rsquo;s identity verification settings, which you can access by selecting <strong>Identity Verification</strong> in the <a href = \"https://admindemo.docusign.com/authenticate?goTo=appsAndKeys\" target = \"_blank\">Apps and Keys</a> navigation menu.</li><li>A file that you can select to use as the document to be signed.</li></ul><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol>",
+  "categories": [
+    "eSignature REST API"
+  ],
+  "areas": [
+    "Envelope",
+    "Phone Authentication",
+    "Remote Signing"
+  ],
+  "steps": [
+    {
+      "name": "PhoneAuthentication_Step_1",
+      "title": "Step 1: Get identity verification workflow ID",
+      "description": "<p>To execute this API call:</p><ol><li>Select <strong>Execute</strong>. You do not need to supply any values before executing this call.</li><li>After the call has been executed, select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "parametersPrompts": [],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/identity_verification",
+        "method": "get",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/identityverifications/list/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          }
+        ],
+        "bodyTemplate": {}
+      }
+    },
+    {
+      "name": "PhoneAuthentication_Step_2",
+      "title": "Step 2: Create an envelope with remote recipient",
+      "description": "<p>To execute this API call, supply all parameter values below and select <strong>Execute</strong>.</p>",
+      "parametersPrompts": [
+        {
+          "name": "signerName",
+          "type": "string",
+          "defaultValue": "Test Signer Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].name",
+          "title": "Signer name",
+          "note": "The name of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipient</a> who will sign the document."
+        },
+        {
+          "name": "signerEmail",
+          "type": "string",
+          "defaultValue": "example@email.com",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].email",
+          "title": "Signer email",
+          "note": "The signer&rsquo;s email address."
+        },
+        {
+          "name": "signerAuthCountryCode",
+          "type": "string",
+          "defaultValue": "1",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].identityVerification.inputOptions[0].phoneNumberList[0].countryCode",
+          "title": "Signer country code",
+          "note": "The country code for the phone number that will be used for <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/auth/#phone\" target = \"_blank\">phone authentication</a>."
+        },
+        {
+          "name": "signerAuthPhoneNumber",
+          "type": "string",
+          "defaultValue": "5555555555",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].identityVerification.inputOptions[0].phoneNumberList[0].number",
+          "title": "Signer phone number",
+          "note": "The phone number that will be used for phone authentication."
+        },
+        {
+          "name": "document1",
+          "type": "file",
+          "defaultValue": "",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "documents[0].documentBase64;documents[0].name;documents[0].fileExtension;",
+          "title": "Document",
+          "note": "A <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">document</a> that will be sent to the envelope recipient for signature. Most common file types are supported."
+        }
+      ],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "workflowId",
+            "in": "body",
+            "source": "PhoneAuthentication_Step_1",
+            "responseParameterPath": "identityVerification[?(@.defaultName=='Phone Authentication')].workflowId",
+            "requestParameterPath": "recipients.signers[0].identityVerification.workflowId",
+            "description": "Phone Authentication workflow ID",
+            "error": "Unable to obtain phone authentication workflow ID. Your account may not have phone authentication enabled."
+          }
+        ],
+        "bodyTemplate": {
+          "emailSubject": "Please sign this document set",
+          "documents": [
+            {
+              "documentBase64": "[document1]",
+              "name": "Sample document",
+              "fileExtension": "txt",
+              "documentId": "1"
+            }
+          ],
+          "recipients": {
+            "signers": [
+              {
+                "email": "[signerEmail]",
+                "name": "[signerName]",
+                "recipientId": "1",
+                "routingOrder": "1",
+                "tabs": {
+                  "signHereTabs": [
+                    {
+                      "tabId": "signature",
+                      "xposition": "300",
+                      "yposition": "400",
+                      "required": "true",
+                      "documentId": "1",
+                      "pageNumber": "1",
+                      "tabOrder": "1"
+                    }
+                  ]
+                },
+                "identityVerification": {
+                  "workflowId": "[workflowId]",
+                  "steps": null,
+                  "inputOptions": [
+                    {
+                      "name": "phone_number_list",
+                      "valueType": "PhoneNumberList",
+                      "phoneNumberList": [
+                        {
+                          "countryCode": "[signerAuthCountryCode]",
+                          "number": "[signerAuthPhoneNumber]"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "status": "sent"
+        }
+      }
+    }
+  ]
+}

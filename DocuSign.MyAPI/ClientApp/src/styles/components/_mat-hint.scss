@@ -1,0 +1,27 @@
+.form__input {
+  .mat-form-field-appearance-outline .mat-form-field-subscript-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    position: static;
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: 0;
+    top: calc(100% - 18px);
+  }
+
+  .form__message {
+    margin: map-get($spacers, 1) 0 map-get($spacers, 2);
+
+    &--error {
+      color: $error;
+    }
+  }
+} 
+
+.mat-hint {
+  display: block;
+  margin: map-get($spacers, 2) 0;
+  color: $body-40;
+}

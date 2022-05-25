@@ -1,0 +1,116 @@
+{
+  "name": "RequestSignature",
+  "title": "Request Signature on Single Document by Email",
+  "shortDescription": "Send Document by email and Request Signature",
+  "description": "This example shows a request/response that includes:\n\n* A single PDF document to be signed\n* One tab positioned using anchor text\n* One recipient\n",
+  "categories": [ "Templates", "Signature" ],
+  "areas": [ "eSignature", "area1" ],
+  "steps": [
+    {
+      "name": "CreateEnvelope",
+      "title": "Create an envelope for remote signing",
+      "description": "Create method to send the signature request with the corresponding form information",
+      "parametersPrompts": [
+        {
+          "name": "name",
+          "type": "string",
+          "defaultValue": "John",
+          "required": true,
+          "requestParameterType": "bodyObjectProperty",
+          "requestParameterPath": "recipients.signers.name",
+          "title": "Signer name",
+          "note": "Please provide signer name."
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "defaultValue": "example@email.com",
+          "required": true,
+          "requestParameterType": "bodyObjectProperty",
+          "requestParameterPath": "recipients.signers.email",
+          "title": "Signer email",
+          "note": "Please provide signer email.",
+          "options": {
+            "key1": "value1"
+          }
+        }
+      ],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "requestParameterPath": "accountId",
+            "in": "path",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "definition",
+            "requestParameterPath": "envelopeDefinition",
+            "in": "body",
+            "description": ""
+          }
+        ],
+        "bodyTemplate": {
+          "documents": [
+            {
+              "documentBase64": "[Document content (PDF File)]",
+              "documentId": "1",
+              "fileExtension": "pdf",
+              "name": "NDA.pdf"
+            }
+          ],
+          "emailSubject": "Please sign the NDA",
+          "recipients": {
+            "signers": [
+              {
+                "email": "the_nda_signer@example.com",
+                "name": "[YOUR NAME]",
+                "recipientId": "1",
+                "routingOrder": "1",
+                "tabs": {
+                  "dateSignedTabs": [
+                    {
+                      "anchorString": "signer1date",
+                      "anchorYOffset": "-6",
+                      "fontSize": "Size12",
+                      "name": "Date Signed",
+                      "recipientId": "1",
+                      "tabLabel": "date_signed"
+                    }
+                  ],
+                  "fullNameTabs": [
+                    {
+                      "anchorString": "signer1name",
+                      "anchorYOffset": "-6",
+                      "fontSize": "Size12",
+                      "name": "Full Name",
+                      "recipientId": "1",
+                      "tabLabel": "Full Name"
+                    }
+                  ],
+                  "signHereTabs": [
+                    {
+                      "anchorString": "signer1sig",
+                      "anchorUnits": "mms",
+                      "anchorXOffset": "0",
+                      "anchorYOffset": "0",
+                      "name": "Please sign here",
+                      "optional": "false",
+                      "recipientId": "1",
+                      "scaleValue": 1,
+                      "tabLabel": "signer1sig"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

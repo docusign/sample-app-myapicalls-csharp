@@ -1,0 +1,13 @@
+.form__input {  
+  textarea.mat-input-element {
+    padding: 2px 0;
+    margin: -2px 0;
+    resize: none;
+    height: 56px;
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px $white inset !important;
+      -webkit-text-fill-color: $grey-dark !important;
+    }
+  }
+}

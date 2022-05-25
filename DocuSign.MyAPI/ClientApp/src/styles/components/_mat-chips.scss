@@ -1,0 +1,23 @@
+.main {
+  .mat-chip {
+    &.mat-primary {
+      @extend %tag-primary;
+    }
+    
+    &.mat-accent {
+      @extend %tag-secondary;
+    }
+
+    &.mat-success {
+      @extend %tag-success;
+    }
+  }
+
+  .mat-standard-chip::after {
+    display: none;
+  }
+
+  .mat-chip.mat-standard-chip:not(.mat-chip-disabled):active {
+    box-shadow: none;
+  }
+}

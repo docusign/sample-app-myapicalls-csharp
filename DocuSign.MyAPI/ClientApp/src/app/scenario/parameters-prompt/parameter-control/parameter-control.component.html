@@ -1,0 +1,139 @@
+<div [formGroup]="form">
+  <div class="card__content">
+    <div class="parameter">
+      <div class="parameter__label">
+        <span
+          class="label label__default"
+          [attr.for]="parameter.name"
+          [innerHTML]="parameter.title"
+        ></span>
+      </div>
+      <div class="parameter__input">
+        <div class="form__input">
+          <strong *ngIf="parameter.required" class="form__label">
+            <span class="warning" translate>EXECUTE.PARAMETERS.REQUIRED</span>
+          </strong>
+
+          <mat-form-field appearance="outline" class="disable-label-floating">
+            <mat-label
+              *ngIf="parameter.type !== ParameterPromptType.file"
+              [innerHTML]="parameter.title"
+            ></mat-label>
+            <mat-label
+              *ngIf="
+                parameter.type === ParameterPromptType.file &&
+                control?.hasError('required')
+              "
+              [innerHTML]="parameter.title"
+            ></mat-label>
+            <!-- input -->
+            <div [ngSwitch]="parameter.type">
+              <input
+                matInput
+                #message
+                *ngSwitchCase="ParameterPromptType.string"
+                [formControlName]="parameter.name"
+                [id]="parameter.name"
+                [required]="parameter.required"
+              />
+              <!-- textarea -->
+              <textarea
+                matInput
+                #message
+                type="text"
+                *ngSwitchCase="ParameterPromptType.text"
+                [formControlName]="parameter.name"
+                [id]="parameter.name"
+                [required]="parameter.required"
+              ></textarea>
+
+              <!-- file -->
+              <div *ngSwitchCase="ParameterPromptType.file">
+                <label for="{{ identifier }}" class="file">
+                  <input
+                    class="file__input"
+                    type="file"
+                    [formControlName]="parameter.name"
+                    id="{{ identifier }}"
+                    [required]="parameter.required"
+                    (change)="handleFileInput($event.target)"
+                  />
+                  <span
+                    class="file__button mat-button-base mat-stroked-button mat-primary"
+                    translate
+                    >EXECUTE.PARAMETERS.CHOOSE_FILE</span
+                  >
+
+                  <span class="file__text" [title]="fileName">{{
+                    fileName
+                  }}</span>
+                </label>
+                <input matInput style="display: none" />
+              </div>
+              <!-- email -->
+              <input
+                matInput
+                #message
+                type="email"
+                *ngSwitchCase="ParameterPromptType.email"
+                [formControlName]="parameter.name"
+                [id]="parameter.name"
+                [required]="parameter.required"
+              />
+              <!-- select -->
+              <mat-select
+                [id]="parameter.name"
+                *ngSwitchCase="ParameterPromptType.select"
+                [formControlName]="parameter.name"
+                [required]="parameter.required"
+              >
+                <mat-option *ngFor="let opt of options" [value]="opt.key">
+                  {{ opt.value }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </mat-form-field>
+
+          <div
+            class="form__message form__message--error"
+            *ngIf="
+              parameter.required &&
+              control?.hasError('required') &&
+              control?.touched
+            "
+            [innerHTML]="
+              parameter.title +
+              ' ' +
+              ('EXECUTE.PARAMETERS.IS_REQUIRED' | translate)
+            "
+          ></div>
+
+          <div
+            class="form__message form__message--error"
+            *ngIf="
+              parameter.type === ParameterPromptType.email &&
+              (control?.hasError('email') || control?.hasError('pattern')) &&
+              control?.touched
+            "
+            translate
+          >
+            EXECUTE.PARAMETERS.EMAIL_NOT_VALID
+          </div>
+
+          <div
+            class="form__message form__message--error"
+            *ngIf="
+              parameter.type === ParameterPromptType.file &&
+              control?.hasError(this.fileSizeError) &&
+              control?.touched
+            "
+            translate
+          >
+            EXECUTE.PARAMETERS.FILE_TOO_BIG
+          </div>
+          <mat-hint align="start" [innerHTML]="parameter.note"></mat-hint>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

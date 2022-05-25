@@ -1,0 +1,27 @@
+{
+  "name": "EmbeddedSignature",
+  "title": "Request Embedded Signature",
+  "description": "This example shows a request/response that includes:\n\n* A single PDF document to be signed\n* One tab positioned using anchor text\n* One recipient\n",
+  "categories": [ "Templates", "EmbeddedSignature", "Signature" ],
+  "areas": [ "eSignature" ],
+  "requests": [
+    {
+      "name": "Create an envelope for remote signing",
+      "api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+      "method": "post",
+      "parametersPrompts": [
+        {
+          "name": "string",
+          "requestParameterType": "bodyObjectProperty",
+          "requestParameterPath": "recipients.signers.name",
+          "title": "Signer name",
+          "description": "Please provide signer name."
+        },
+        {
+          "email": "string",
+          "requestParameterType": "bodyObjectProperty",
+          "requestParameterPath": "recipients.signers.email",
+          "title": "Signer email",
+          "description": "Please provide signer email."
+        }
+      ] 

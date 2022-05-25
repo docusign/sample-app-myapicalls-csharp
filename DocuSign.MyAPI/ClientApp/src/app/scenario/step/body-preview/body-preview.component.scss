@@ -1,0 +1,67 @@
+@import "~src/styles";
+
+.output {
+  &__wrapper {
+    margin-bottom: map-get($spacers, 5);
+  }
+
+  &__header {
+    @extend %button-text;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: map-get($spacers, 4);
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  &__body {
+    border-radius: map-get($spacers, 2);
+    overflow: hidden;
+  }
+
+  &__title {
+    padding: map-get($spacers, 4);
+    background-color: #0a2822;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+  }
+
+  &__code {
+    padding: map-get($spacers, 3) map-get($spacers, 1) map-get($spacers, 1);
+    background-color: $light-primary;
+
+    &-inner {
+      @extend %custom-scrollbar;
+      max-height: 400px;
+      margin: 0;
+    }
+  }
+}
+
+.mat-expansion-panel {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  .mat-expansion-panel-header {
+    padding: 0;
+    height: auto;
+  }
+
+  .mat-expansion-panel-header.mat-expanded {
+    height: auto;
+  }
+
+  .mat-expansion-panel-header:hover {
+    background: transparent;
+  }
+
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0;
+  }
+}

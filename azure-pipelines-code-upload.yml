@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  name: DSHC-Pool
+
+steps:
+- script: | 
+    source=$(Build.SourceBranch)
+    git checkout -B none
+    git branch -D ${source#"refs/heads/"} || exit 0
+
+- checkout: self
+  clean: true
+  
+- script: |
+      source=$(Build.SourceBranch)
+      git checkout ${source#"refs/heads/"}
+  
+- script: git push https://${GITHUB_PAT}@github.com/docusign/sample-app-myapicalls-csharp.git
+  env: 
+    GITHUB_PAT: $(github_pat)
+  displayName: 'Push branch to github repo'

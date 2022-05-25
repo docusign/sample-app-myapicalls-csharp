@@ -1,0 +1,19 @@
+@mixin generate($prefix, $property){
+  @each $idx, $size in $spacers {
+    .#{$prefix}-#{$idx} {
+      #{$property}: $size !important;
+    }
+  }
+}
+
+// Generate margins
+@include generate(mt, margin-top);
+@include generate(mr, margin-right);
+@include generate(mb, margin-bottom);
+@include generate(ml, margin-left);
+
+// Generate paddings
+@include generate(pt, padding-top);
+@include generate(pr, padding-right);
+@include generate(pb, padding-bottom);
+@include generate(pl, padding-left);

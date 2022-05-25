@@ -1,0 +1,12 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  docusignmyapi:
+    image: docusignmyapi
+    build:
+      context: .
+      dockerfile: DocuSign.MyAPI/Dockerfile
+    ports:
+      - 80:80

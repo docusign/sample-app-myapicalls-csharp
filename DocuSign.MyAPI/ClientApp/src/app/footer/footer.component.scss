@@ -1,0 +1,41 @@
+@import "~src/styles";
+
+.footer {
+  text-align: center;
+
+  &__top {
+    position: relative;
+    padding: map-get($spacers, 10) 0;
+  }
+
+  &__img {
+    @extend %position-absolute-full-size;
+    z-index: -1;
+
+    .image {
+      @extend %position-absolute-full-size;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    @extend %h3;
+    margin-bottom: map-get($spacers, 4);
+  }
+
+  &__link {
+    @extend %link;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: $font-weight-black;
+    opacity: 0.8;
+  }
+
+  &__bottom {
+    padding: map-get($spacers, 2) 0;
+    background-color: $body;
+    font-size: 14px;
+    line-height: 24px;
+    color: $white;
+  }
+}

@@ -1,0 +1,97 @@
+.mat-button-base {
+  display: inline-flex;
+  align-items: center;
+  padding: map-get($spacers, 2) map-get($spacers, 5);
+  border-radius: map-get($spacers, 2);
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: 24px;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+      margin-left: map-get($spacers, 2);
+    }
+  }
+
+  .mat-button-focus-overlay {
+    display: none;
+  }
+}
+
+// Base button
+.mat-button {
+  &.mat-primary {
+    color: $primary;
+    opacity: 0.7;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
+
+    &:disabled {
+      color: $body-80;
+    }
+  }
+}
+
+// Raised button
+.mat-raised-button {
+  border: 1px solid transparent;
+
+  &:not([class*=mat-elevation-z]),
+  &:not(.mat-button-disabled):active:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  
+  &.mat-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $body;
+      border-color: $body;
+    }
+
+    &:disabled {
+      background-color: $grey-dark;
+      border-color: $grey-dark;
+    }
+  }
+}
+
+// Stroked button
+.mat-stroked-button {
+  &.mat-primary {
+    background-color: $white;
+    border-color: $primary;
+    color: $primary;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $primary;
+      color: $white;
+    }
+
+    &:disabled {
+      background-color: $grey-dark;
+      border-color: $grey-dark;
+      color: $white;
+    }
+  }
+}

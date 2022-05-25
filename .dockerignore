@@ -1,0 +1,9 @@
+DocuSign.MyAPI/Dockerfile
+DocuSign.MyAPI/bin
+DocuSign.MyAPI/obj
+DocuSign.MyAPI/ClientApp/node_modules
+DocuSign.MyAPI.Domain/bin
+DocuSign.MyAPI.Domain/obj
+DocuSign.MyAPI.Tests/bin
+DocuSign.MyAPI.Tests/obj
+DocuSign.MyAPI.Tests

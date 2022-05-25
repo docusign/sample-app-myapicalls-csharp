@@ -1,0 +1,112 @@
+<div class="execution">
+  <div class="execution__input">
+    <nav class="breadcrumbs">
+      <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a [routerLink]="['/']" class="breadcrumbs__link" translate>HOME</a>
+        </li>
+        <li class="breadcrumbs__item">
+          <a [routerLink]="['/']"
+             class="breadcrumbs__link breadcrumbs__link--disabled"
+             [innerHTML]="step.title"></a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="text">
+      <h1 class="execution__title" [innerHTML]="stepInfo.title"></h1>
+      <p [innerHTML]="stepInfo.description"></p>
+    </div>
+
+    <div class="api">
+      <p>
+        <strong [innerHTML]="'EXECUTE.STEP.ENDPOINT_TEXT' | translate"></strong>
+      </p>
+      <p class="endpoint">
+        <span class="label label__primary">{{ stepInfo.method }}</span>
+        <strong>{{ apiUrl }}</strong>
+      </p>
+    </div>
+
+    <app-parameters-prompt
+      #parametersPromptComponent
+      [parameterPrompts]="stepInfo.parameterPrompts"
+      [submitCallback]="onSubmitCallback"
+      scope="Step"
+    ></app-parameters-prompt>
+
+    <p class="url">
+      <span [innerHTML]="'EXECUTE.STEP.DOCUMENTATION_TEXT' | translate"></span>
+      <a href="{{ stepInfo.documentationUrl }}" class="link" target="_blank">
+        {{ "EXECUTE.STEP.DOCUMENTATION_LINK" | translate }}
+        <mat-icon aria-hidden="false" aria-label="external link"
+          >launch</mat-icon
+        >
+      </a>
+    </p>
+    <!--
+    <div class="execution__input-action" *ngIf="!step.last">
+      <button
+        mat-raised-button
+        color="primary"
+        matStepperNext
+        [disabled]="!step.completed"
+      >
+        {{ "EXECUTE.STEP.NEXT" | translate }}
+        <mat-icon
+          class="step__icon"
+          aria-hidden="false"
+          aria-label="Example home icon"
+          >east</mat-icon
+        >
+      </button>
+    </div>
+      -->
+  </div>
+
+  <div class="execution__output">
+    <div>
+      <app-login-prompt
+        *ngIf="(isLoggedIn | async) === false"
+      ></app-login-prompt>
+    </div>
+
+    <div *ngIf="isLoggedIn | async">
+      <app-body-preview [body]="requestBody"
+                        title="{{ 'EXECUTE.STEP.REQUEST_BODY' | translate }}"
+                        label="{{ 'EXECUTE.STEP.REQUEST_JSON' | translate }}"></app-body-preview>
+
+      <div class="output__actions">
+        <!--
+        <mat-checkbox class="output__checkbox" [(ngModel)]="outputResults">
+          <span [innerHTML]="'EXECUTE.STEP.DONT_SHOW_CALLS' | translate"></span>
+        </mat-checkbox>
+-->
+        <button mat-raised-button
+                color="primary"
+                class="full-width"
+                (click)="executeStep()"
+                [disabled]="!parametersPromptComponent.canExecute">
+          {{ "EXECUTE.EXECUTE" | translate }}
+        </button>
+      </div>
+
+      <div class="execution__input-action" *ngIf="!step.last">
+        <button mat-raised-button
+                color="primary"
+                class="full-width"
+                matStepperNext
+                [disabled]="!step.completed">
+          {{ "EXECUTE.STEP.NEXT" | translate }}
+          <mat-icon class="step__icon"
+                    aria-hidden="false"
+                    aria-label="Example home icon">east</mat-icon>
+        </button>
+      </div>
+
+      <app-body-preview [body]="responseBody"
+                        title="{{ 'EXECUTE.STEP.RESPONSE_BODY' | translate }}"
+                        label="{{ 'EXECUTE.STEP.RESPONSE_JSON' | translate }}"></app-body-preview>
+    </div>
+  </div>
+</div>

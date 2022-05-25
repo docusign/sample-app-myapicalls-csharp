@@ -1,0 +1,149 @@
+.mat-stepper-horizontal {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .mat-horizontal-stepper-header-container {
+    flex: 0 0 312px;
+    max-width: 312px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: map-get($spacers, 4) map-get($spacers, 10);
+    border-right: 1px solid $grey;
+  }
+
+  .mat-horizontal-stepper-header {
+    height: auto;
+    padding: map-get($spacers, 3) 0 map-get($spacers, 3) map-get($spacers, 2);
+    border-left: 1px solid $grey;
+
+    &:first-child {
+      .step {
+        &__title {
+          @extend %h3;
+        }
+      }
+    }
+
+    &:not(:first-child) {
+      overflow: visible;
+      
+      .mat-step-label {
+        position: relative;
+        overflow: visible;
+  
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: -#{map-get($spacers, 3)};
+          bottom: -#{map-get($spacers, 3)};
+          transform: translateX(-12px);
+          display: block;
+          width: 3px;
+          background-color: transparent;
+          transition: background-color .3s;
+        }
+
+        &.mat-step-label-selected {
+          &::before {
+            background-color: $primary;
+          }
+        }
+      }
+    }
+
+    &:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    &:hover:not([aria-disabled]),
+    &.cdk-keybord-focused,
+    &.cdk-program-focused {
+      background-color: transparent;
+    }
+
+    .mat-step-icon {
+      display: none;
+    }
+
+    .mat-step-label {
+      width: 100%;
+      color: $body;
+      white-space: initial;
+      transition: color .3s;
+
+      &.mat-step-label-selected {
+        color: $primary;
+      }
+    }
+
+    .step {
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: map-get($spacers, 2);
+      }
+
+      &__title {
+        @extend %h4;
+        flex: 1;
+        padding-right: map-get($spacers, 3);
+        white-space: initial;
+      }
+
+      &__icon {
+        flex: 0 0 24px;
+        transform: translateX(-#{map-get($spacers, 2)});
+        transition: transform .3s;
+      }
+    }
+
+    .mat-step-optional {
+      color: inherit;
+      display: none;
+    }
+  }
+
+  .mat-horizontal-stepper-header:hover {
+    cursor: pointer;
+
+    &:not(:first-child) {
+      .mat-step-label {
+        &::before {
+          background-color: $primary;
+        }
+      }
+    }
+
+    .mat-step-label {
+      color: $primary;
+    }
+
+    .step__icon {
+      transform: translateX(0) !important;
+    }
+  }
+
+  .mat-stepper-horizontal-line {
+    display: none;
+  }
+
+  // Content
+  .mat-horizontal-content-container {
+    flex: 1;
+    padding: 0;
+  }
+
+  .mat-horizontal-stepper-content {
+    height: 100%;
+
+    & > form {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+  }
+}

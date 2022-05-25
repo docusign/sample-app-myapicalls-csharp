@@ -1,0 +1,123 @@
+@import "~src/styles";
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: map-get($spacers, 6);
+
+  &__label {
+    margin: 8px map-get($spacers, 2) 8px 0;
+  }
+
+  &__btn {
+    @extend %button-text;
+    display: flex;
+    align-items: center;
+    margin: 6px 0 6px map-get($spacers, 4);
+    color: $primary;
+
+    &:hover,
+    &:focus {
+      .categories__btn__text {
+        text-decoration: underline;
+      }
+    }
+
+    .mat-icon {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+}
+
+.mat-expansion-panel {
+  position: relative;
+  padding: 0;
+  background-color: $primary-5;
+  border-radius: map-get($spacers, 2);
+  box-shadow: none;
+
+  &:not(:last-child) {
+    margin-bottom: map-get($spacers, 6);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: transparent url("#{$iconPath}/plus-icon.svg") no-repeat center /
+      100% auto;
+    z-index: 100;
+  }
+
+  .mat-expansion-panel-header {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    height: auto;
+    padding: 24px 24px 24px 64px;
+
+    .mat-button-base {
+      margin-right: -#{map-get($spacers, 3)};
+    }
+  }
+
+  .mat-expansion-indicator {
+    display: none;
+  }
+
+  ::ng-deep .mat-content {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .mat-expansion-panel-header-title {
+    margin-bottom: map-get($spacers, 2);
+    @extend %h3;
+  }
+
+  .mat-expansion-panel-header-description,
+  ::ng-deep .mat-expansion-panel-body {
+    font-size: 14px;
+    line-height: 21px;
+    color: $body-40;
+  }
+
+  ::ng-deep .mat-expansion-panel-body {
+    margin-top: -#{map-get($spacers, 2)};
+    padding: 0 24px 24px 64px;
+  }
+
+  .mat-chip-list {
+    display: block;
+
+    &:not(:last-of-type) {
+      margin-bottom: map-get($spacers, 2);
+    }
+  }
+
+  .description {
+    margin-top: map-get($spacers, 3);
+  }
+}
+
+.mat-expansion-panel {
+  &.mat-expanded {
+    &::before {
+      background-image: url("#{$iconPath}/minus-icon.svg");
+    }
+  }
+}
+
+.mat-expansion-panel:not(.mat-expanded)
+  .mat-expansion-panel-header:hover:not([aria-disabled="true"]) {
+  background: transparent;
+
+  .mat-expansion-panel-header-title {
+    text-decoration: underline;
+  }
+}

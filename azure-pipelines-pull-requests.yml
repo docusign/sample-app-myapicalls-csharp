@@ -1,0 +1,55 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger: none
+
+pool:
+  name: DSHC-Pool
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build "DocuSign.MyAPI.csproj" --configuration $(buildConfiguration) -o app/build
+  workingDirectory: DocuSign.MyAPI/
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- script: dotnet publish "DocuSign.MyAPI.csproj" --configuration $(buildConfiguration) -o app/publish
+  workingDirectory: DocuSign.MyAPI/
+  displayName: 'dotnet publish $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: "Perform and publish backend tests"
+  inputs:
+    command: test
+    publishTestResults: true 
+    workingDirectory: DocuSign.MyAPI.Tests/
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+
+- script: npm run lint
+  condition: succeededOrFailed()
+  workingDirectory: DocuSign.MyAPI/ClientApp
+  displayName: 'Perform frontend lint'   
+
+- script: ng test --browsers ChromeHeadless --watch=false --karma-config karma.conf.js --code-coverage
+  workingDirectory: DocuSign.MyAPI/ClientApp
+  displayName: 'Perform frontend unit tests'    
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'DocuSign.MyAPI/ClientApp/**/TESTS-*.xml'
+  displayName: 'Publish frontend unit test results'
+
+- script: 'reportgenerator "-reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml;$(Build.SourcesDirectory)/DocuSign.MyAPI/ClientApp/coverage/angularapp/cobertura-coverage.xml" -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
+  displayName: 'Merge code coverage reports'  
+
+- task: PublishCodeCoverageResults@1
+  condition: succeededOrFailed()
+  displayName: 'Publish code coverage results'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'

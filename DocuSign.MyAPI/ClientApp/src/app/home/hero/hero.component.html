@@ -1,0 +1,33 @@
+<section class="hero">
+  <picture class="hero__img">
+    <source srcset="../../assets/images/hero-bg.webp" type="image/webp" />
+    <img class="image" src="../../assets/images/hero-bg.png" alt="" />
+  </picture>
+  <div class="container">
+    <h1 class="hero__title" [innerHTML]="'SITE_TITLE' | translate"></h1>
+    <p class="hero__subtitle" [innerHTML]="'SITE_DESCRIPTION' | translate"></p>
+    <div class="hero__actions" *ngIf="(isLoggedIn | async) === false">
+      <a
+        class="link"
+        mat-raised-button
+        color="primary"
+        disableRipple
+        href="/account/login"
+      >
+        {{ "LOGIN" | translate }}
+        <mat-icon aria-hidden="false" aria-label="external link"
+          >arrow_right_alt</mat-icon
+        >
+      </a>
+      <a
+        class="link"
+        mat-stroked-button
+        color="primary"
+        disableRipple
+        href="https://account-d.docusign.com/signup"
+      >
+        {{ "CREATE_ACCOUNT" | translate }}
+      </a>
+    </div>
+  </div>
+</section>

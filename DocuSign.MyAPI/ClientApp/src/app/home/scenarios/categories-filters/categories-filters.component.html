@@ -1,0 +1,31 @@
+<div class="filter">
+  <div class="filter__title" translate>FILTER.CATEGORY</div>
+  <ul class="filter__list">
+    <li
+      class="filter__item"
+      *ngFor="let category of categoriesFiltersToDisplay"
+    >
+      <button
+        class="filter__button"
+        [class.selected]="isCategorySelected(category.name)"
+        (click)="filterByCategory(category.name)"
+      >
+        {{ category.name }} ({{ category.amount }})
+      </button>
+    </li>
+  </ul>
+  <button
+    class="filter__exp"
+    (click)="toggleFilters()"
+    *ngIf="showSeeMoreButton"
+  >
+    {{
+      isExpanded
+        ? ("FILTER.VIEW_LESS" | translate)
+        : ("FILTER.VIEW_MORE" | translate)
+    }}
+    <mat-icon aria-hidden="false">{{
+      isExpanded ? "expand_less" : "expand_more"
+    }}</mat-icon>
+  </button>
+</div>

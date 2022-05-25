@@ -1,0 +1,62 @@
+.form__input {  
+  .mat-form-field-appearance-outline {  
+    .mat-select-arrow-wrapper {
+      transform: none;
+    }
+  }
+
+  .mat-select-arrow {
+    width: 16px;
+    height: 16px;
+    background: transparent url("#{$iconPath}/shevron-icon.svg") no-repeat center / 12px auto;
+    border: none;
+  }  
+}
+
+.cdk-overlay-container {
+  .mat-select-panel {
+    padding: map-get($spacers, 2) map-get($spacers, 4);
+    border-radius: map-get($spacers, 2);
+    border: 1px solid $body;
+    font-size: 14px!important;
+  }
+
+  .mat-select-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+
+  .mat-option {
+    padding: 0;
+    height: auto;
+    line-height: 21px;
+  }
+
+  .mat-option:hover:not(.mat-option-disabled), 
+  .mat-option:focus:not(.mat-option-disabled) {
+    background: $light-primary;
+  }
+
+  .mat-option.mat-active {
+    background:  transparent;
+    color: $body;
+    font-weight: $font-weight-medium;
+  }
+
+  .mat-select-panel .mat-optgroup-label, 
+  .mat-select-panel .mat-option {
+    height: auto;
+    line-height: 21px;
+
+    &:not(:last-child) {
+      margin-bottom: map-get($spacers, 4);
+    }
+  }
+
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: transparent;
+  }
+
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: $body;
+  }
+}

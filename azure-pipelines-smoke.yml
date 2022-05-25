@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  name: DSHC-Pool
+
+steps:
+- script: docker build -t docusignmyapi:$(Build.BuildId) -f DocuSign.MyAPI/Dockerfile .
+  displayName: 'Build docker image'
+
+- script: docker run --name docusignmyapi_$(Build.BuildId) -d -e DocuSign__IntegrationKey=$(integration_key) -e DocuSign__SecretKey=$(secret_key) docusignmyapi:$(Build.BuildId)
+  displayName: 'Run docker container'
+
+- script: sleep 10
+  displayName: 'Wait container startup'
+  
+- script: docker run --network container:docusignmyapi_$(Build.BuildId) appropriate/curl --retry 3 --retry-connrefused --fail http://localhost:80/healthz
+  displayName: 'Perform healthcheck'
+
+- script: docker logs docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Fetch logs'
+
+- script: docker kill docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Delete container'
+
+- script: docker rm docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Remove container'

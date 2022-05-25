@@ -1,0 +1,30 @@
+<mat-expansion-panel
+  hideToggle
+  [expanded]="isPanelOpened"
+  (opened)="isPanelOpened = true"
+  (closed)="isPanelOpened = false"
+>
+  <mat-expansion-panel-header>
+    <div class="output__header">
+      {{ title }}
+      <mat-icon
+        *ngIf="!isPanelOpened"
+        aria-hidden="false"
+        aria-label="Expand more"
+        >expand_more</mat-icon
+      >
+      <mat-icon
+        *ngIf="isPanelOpened"
+        aria-hidden="false"
+        aria-label="Expand less"
+        >expand_less</mat-icon
+      >
+    </div>
+  </mat-expansion-panel-header>
+  <div class="output__body">
+    <div class="output__title" translate>{{ label }}</div>
+    <div class="output__code">
+      <pre class="output__code-inner"><code>{{ body }}</code></pre>
+    </div>
+  </div>
+</mat-expansion-panel>

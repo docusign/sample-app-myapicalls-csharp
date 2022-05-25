@@ -1,0 +1,38 @@
+@import "~src/styles";
+
+.header {
+  padding: map-get($spacers, 2) 0;
+  border: 1px solid $grey-dark;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 map-get($spacers, 4);
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    @extend %list-reset;
+
+    &-item {
+      &:not(:last-child) {
+        margin-right: map-get($spacers, 10);
+      }
+
+      &.link-active {
+        .header__menu-link {
+          color: $primary;
+        }
+      }
+    }
+
+    &-link {
+      @extend %link;
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: $font-weight-medium;
+    }
+  }
+}

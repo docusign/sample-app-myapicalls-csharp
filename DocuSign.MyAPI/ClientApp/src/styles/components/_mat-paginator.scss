@@ -1,0 +1,51 @@
+.mat-paginator {
+  font-family: $baseFontFamily;
+  font-size: 14px;
+  line-height: 21px;
+  color: rgba(0,0,0,.8);
+
+  .mat-paginator-page-size {
+    margin-right: 0;
+
+    .mat-select-trigger {
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    .mat-select-arrow {
+      width: 16px;
+      height: 16px;
+      background: transparent url("#{$iconPath}/shevron-icon.svg") no-repeat center / 12px auto;
+      border: none;
+    }
+  }
+
+  .mat-paginator-page-size-label {
+    margin: 0 map-get($spacers, 4) 0 0;
+  }
+
+  .mat-paginator-page-size-select {
+    width: 40px;
+    margin: 0;
+  }
+
+  .mat-paginator-range-actions {
+    margin-bottom: 6px;
+
+    .mat-button-base {
+      color: $body;
+    }
+
+    .mat-icon-button.mat-button-disabled.mat-button-disabled {
+      color: $body-80;
+    }
+  }
+
+  .mat-paginator-range-label {
+    margin: 0 40px;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none;
+  }
+}

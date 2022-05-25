@@ -1,0 +1,37 @@
+.file {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  max-width: 100%;
+  cursor: pointer;
+  width: 100%;
+
+  &__input {
+    @extend %sr-only;
+
+    &:disabled {
+      & + .file__button {
+        background-color: $grey-dark;
+        border-color: $grey-dark;
+        color: $white;
+        cursor: not-allowed;
+      }
+
+      & ~ .file__text {
+        color: $body-80;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__button {
+    min-width: 120px;
+    margin-left: auto;
+  }
+
+  &__text {
+    padding: map-get($spacers, 2) map-get($spacers, 4) map-get($spacers, 2) 0;
+    @extend %text-truncate;
+    color: $body-40;
+  }
+}

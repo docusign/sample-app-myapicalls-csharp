@@ -1,0 +1,73 @@
+<div class="categories"
+     *ngIf="selectedCategory.length > 0 || selectedArea.length > 0">
+  <div class="categories__label"
+       translate
+       [translateParams]="{ value: length }">
+    SELECTED_SCENARIOS
+  </div>
+  <mat-chip-list aria-label="categories">
+    <mat-chip color="success" disableRipple *ngIf="selectedCategory.length > 0">
+      {{ selectedCategory }} ({{ selectedCategoryAmount }})
+      <mat-icon aria-hidden="false"
+                aria-label="Clear category"
+                (click)="removeCategoryFilter()">close</mat-icon>
+    </mat-chip>
+    <mat-chip color="success" disableRipple *ngIf="selectedArea.length > 0">
+      {{ selectedArea }} ({{ selectedAreaAmount }})
+      <mat-icon aria-hidden="false"
+                aria-label="Clear area"
+                (click)="removeAreaFilter()">close</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <button class="categories__btn" (click)="removeAllFilters()">
+    <span class="categories__btn__text" translate>CLEAR_ALL</span>
+    <mat-icon aria-hidden="false" aria-label="Clear all">close</mat-icon>
+  </button>
+</div>
+
+<div class="envelope__list">
+  <mat-expansion-panel hideToggle *ngFor="let scenario of scenariosToDisplay">
+    <mat-expansion-panel-header>
+      <div class="panel-header">
+        <mat-panel-title [innerHTML]="scenario.title"> </mat-panel-title>
+        <mat-panel-description [innerHTML]="scenario.shortDescription">
+        </mat-panel-description>
+      </div>
+      <button mat-button
+              color="primary"
+              disableRipple
+              [routerLink]="['/scenario', scenario.scenarioNumber]">
+        {{ "TRY_SCENARIO" | translate }}
+        <mat-icon aria-hidden="false" aria-label="external link"> </mat-icon>
+      </button>
+    </mat-expansion-panel-header>
+    <div>
+      <mat-chip-list aria-label="categories">
+        <mat-chip
+          color="primary"
+          *ngFor="let category of scenario.categories"
+          disableRipple
+          >{{ category }}</mat-chip
+        >
+      </mat-chip-list>
+
+      <mat-chip-list aria-label="areas">
+        <mat-chip
+          color="accent"
+          *ngFor="let area of scenario.areas"
+          disableRipple
+          >{{ area }}</mat-chip
+        >
+      </mat-chip-list>
+      <p class="description" [innerHTML]="scenario.codeFlow"></p>
+    </div>
+  </mat-expansion-panel>
+</div>
+
+
+
+<mat-paginator #scenariosPaginator
+               [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="pageChanged($event)"></mat-paginator>

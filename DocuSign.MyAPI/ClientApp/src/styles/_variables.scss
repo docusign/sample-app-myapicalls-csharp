@@ -1,0 +1,58 @@
+$baseFontFamily: 'Roboto', sans-serif;
+$secondaryFontFamily: 'JetBrains Mono', monospace;
+$baseFontSize: 14px;
+$baseLineHeight: 1.4;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+// Color palette
+$primary: #009087;
+$primary-5: #F5FAFB;
+$primary-10: #E2F0F3;
+$primary-20: #CCE9E7;
+$primary-30: #B3DEDB;
+$secondary: #FEE7B8;
+$secondary-40: #FEF1D4;
+$secondary-60: #FFF5E3;
+$body: #07070A;
+$body-40: #39393B;
+$body-60: #6A6A6C;
+$body-80: #9C9C9D;
+$grey: #F3F3F6;
+$grey-dark: #B7CED5;
+$green: #D1FBE6;
+$blue: #D1F9FF;
+$yellow: #FFEEE0;
+$pink: #FFE5E7;
+$white: #FFF;
+ 
+$warning: #FF7438; 
+$error: #FF373C;
+$light-primary: #e7f2f5;
+$blue-lightest: #f8fdfe;
+
+$spacer: 16px;
+$spacers: ();
+$spacers: map-merge(
+  (
+    0: 0,
+    1: ($spacer * .25), //4
+    2: ($spacer * .5), //8
+    3: ($spacer * .75), //12
+    4: $spacer, //16
+    5: ($spacer * 1.25), //20
+    6: ($spacer * 1.5), //24
+    7: ($spacer * 1.75), //28
+    8: ($spacer * 2), //32
+    9: ($spacer * 2.25), //36
+    10: ($spacer * 2.5) //40
+  ),
+  $spacers
+);
+
+$container-width: 1288px;
+$container-gutters: map-get($spacers, 6);
+
+$iconPath: "~src/assets/icons";

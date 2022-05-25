@@ -1,0 +1,85 @@
+<mat-stepper
+  [@.disabled]="true"
+  [linear]="true"
+  #stepper
+  [disableRipple]="true"
+  (selectionChange)="stepChanged($event)"
+>
+  <mat-step [completed]="scenario.completed" optional="true">
+    <ng-template matStepLabel>
+      <div class="step__header">
+        <div
+          class="step__title"
+          [innerHTML]="'EXECUTE.SCENARIO.TITLE' | translate"
+        ></div>
+        <mat-icon
+          class="step__icon"
+          aria-hidden="false"
+          aria-label="Arrow right icon"
+          >arrow_right_alt</mat-icon
+        >
+      </div>
+      <div
+        class="step__subtitle"
+        [innerHTML]="'EXECUTE.SCENARIO.DESCRIPTION' | translate"
+      ></div>
+    </ng-template>
+    <app-execute-scenario
+      [scenario]="scenario"
+      (executeEvent)="onExecuteEvent($event)"
+    ></app-execute-scenario>
+  </mat-step>
+  <mat-step
+    *ngFor="let step of scenario.steps; let i = index"
+    [completed]="step.completed"
+  >
+    <ng-template matStepLabel>
+      <div class="step__header">
+        <div class="step__title" [innerHTML]="step.title"></div>
+        <mat-icon
+          class="step__icon"
+          aria-hidden="false"
+          aria-label="Arrow right icon"
+          >arrow_right_alt</mat-icon
+        >
+      </div>
+      <div class="step__subtitle" [innerHTML]="step.shortDescription"></div>
+    </ng-template>
+    <ng-template matStepContent>
+      <app-step
+        [scenarioId]="scenarioId"
+        [step]="step"
+        [stepIndex]="i"
+        (executeEvent)="onExecuteEvent($event)"
+      ></app-step>
+    </ng-template>
+  </mat-step>
+</mat-stepper>
+
+<div
+  class="sheet__wrapper"
+  [ngClass]="{ sheet__active: isResultsShown }"
+  *ngIf="isResultsVisible"
+>
+  <div class="sheet__overlay"></div>
+  <div class="sheet">
+    <div class="sheet__inner">
+      <div class="sheet__action" (click)="toggleResults()" translate>
+        EXECUTE.CALLS_EXECUTION
+        <mat-icon
+          *ngIf="!isResultsShown"
+          aria-hidden="false"
+          aria-label="Expand more"
+          >expand_less</mat-icon
+        >
+        <mat-icon
+          *ngIf="isResultsShown"
+          aria-hidden="false"
+          aria-label="Expand less"
+          >expand_more</mat-icon
+        >
+      </div>
+      <app-execution-results></app-execution-results>
+    </div>
+  </div>
+</div>

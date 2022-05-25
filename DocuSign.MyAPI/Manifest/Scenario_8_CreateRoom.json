@@ -1,0 +1,163 @@
+{
+  "name": "CreateRoom",
+  "title": "Create a Room",
+  "shortDescription": "Create a&nbsp;<a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/\" target = \"_blank\">room</a>&nbsp;to manage mortgage or real estate transactions",
+  "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#rooms\" target = \"_blank\">Rooms</a></li><li><a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#roles\" target = \"_blank\">Roles</a></li><li><a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#fieldsets\" target = \"_blank\">Fieldsets</a></li><li><a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#transaction-sides\" target = \"_blank\">Transaction sides</a></li></ul>",
+  "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>A <a href = \"https://developers.docusign.com/docs/rooms-api/reference/roles/roles/createrole/\" target = \"_blank\">Roles:CreateRole</a> call defines a role, which is a set of permissions. The room that&rsquo;s created in the next step will be associated with this role. The <code>isExternal</code> property in this call is set to <code>false</code>, which means the role cannot be assigned to people outside the <a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#companies\" target = \"_blank\">company</a>.</p><h3><strong>Step 2</strong></h3><p>A <a href = \"https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/createroom/\" target = \"_blank\">Rooms:CreateRoom</a> request creates a room, which is a digital workspace for managing a transaction. The role ID in this call is automatically populated with the ID returned by the <code>Roles:CreateRole</code> call. Included in the request body is a fieldset, defined by the <code>fieldData</code> property. The fieldset specifies values that appear on a room&rsquo;s <a href = \"https://support.docusign.com/s/document-item?language=en_US&bundleId=clr1643042075783&topicId=upx1572968403449.html&_LANG=enus\" target = \"_blank\">Details tab</a>.</p>",
+  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need the Rooms API enabled for your account. See <a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/create-account/\" target = \"_blank\">Creating a Rooms developer account</a>. If the feature is not enabled, an <code>ACCESS_DENIED</code> error will be returned when you execute the scenario.</p><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To display the role and room</strong></h3><p>After executing step 2, or after executing the entire scenario, follow these steps to display the role and room:</p><ol><li>Visit the <a href = \"https://demo.rooms.docusign.com/admin/company/rolesandpermissions\" target = \"_blank\">Roles and Permissions</a> page.</li><li>Use the search field to locate the role you created by name.</li><li>Visit the <a href = \"https://demo.rooms.docusign.com/rooms\" target = \"_blank\">Rooms</a> page.</li><li>Use the search field and filters to locate the room you created by name or other criteria.</li></ol>",
+  "categories": [
+    "Rooms API"
+  ],
+  "areas": [
+    "Fieldset",
+    "Role",
+    "Room",
+    "Transaction Side"
+  ],
+  "steps": [
+    {
+      "name": "CreateRoom_Step_1",
+      "title": "Step 1: Create a role",
+      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li><li>After the call has been executed, select <strong>Next step</strong> to supply parameters for the next call and execute it.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "roleName",
+          "type": "string",
+          "defaultValue": "Test Role Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "name",
+          "title": "Role name",
+          "note": "A unique name for the <a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#roles\" target = \"_blank\">role</a>. If the supplied name already exists, an API error will be returned. The name will be displayed on the <a href = \"https://demo.rooms.docusign.com/admin/company/rolesandpermissions\" target = \"_blank\">Roles and Permissions</a> page."
+        }
+      ],
+      "request": {
+        "host": "https://demo.rooms.docusign.com",
+        "api": "/restapi/v2/accounts/{accountId}/roles",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/rooms-api/reference/roles/roles/createrole/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          }
+        ],
+        "bodyTemplate": {
+          "name": "[roleName]",
+          "isExternal": false
+        }
+      }
+    },
+    {
+      "name": "CreateRoom_Step_2",
+      "title": "Step 2: Create a room",
+      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li></ol><p>To display the role and room:</p><ol><li>Visit the <a href = \"https://demo.rooms.docusign.com/admin/company/rolesandpermissions\" target = \"_blank\">Roles and Permissions</a> page.</li><li>Use the search field to locate the role you created by name.</li><li>Visit the <a href = \"https://demo.rooms.docusign.com/rooms\" target = \"_blank\">Rooms</a> page.</li><li>Use the search field and filters to locate the room you created by name or other criteria.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "roomName",
+          "type": "string",
+          "defaultValue": "Test Room Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "name",
+          "title": "Room name",
+          "note": "A name for the <a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#rooms\" target = \"_blank\">room</a>. This will be displayed on the <a href = \"https://demo.rooms.docusign.com/rooms\" target = \"_blank\">Rooms</a> page."
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "defaultValue": "Test Address",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "fieldData.data.address1",
+          "title": "Address",
+          "note": "The address of the office associated with the room."
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "defaultValue": "Test City",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "fieldData.data.city",
+          "title": "City",
+          "note": "The city where the office is located."
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "defaultValue": "US-CA",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "fieldData.data.state",
+          "title": "State ID",
+          "note": "The state where the office is located. This value must be a concatenation of a two-letter country code with a state, province, or region. For example, <code>US-CA</code> is the state ID for California. The <a href = \"https://developers.docusign.com/docs/rooms-api/reference/globalresources/states/getstates/\" target = \"_blank\">States:GetStates</a> endpoint returns a list of valid state IDs."
+        },
+        {
+          "name": "postalCode",
+          "type": "string",
+          "defaultValue": "12345",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "fieldData.data.postalCode",
+          "title": "Postal code",
+          "note": "The office postal code."
+        },
+        {
+          "name": "transactionSide",
+          "type": "select",
+          "defaultValue": "",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "transactionSideId",
+          "title": "Transaction side",
+          "note": "The part that the <a href = \"https://developers.docusign.com/docs/rooms-api/rooms101/concepts/#companies\" target = \"_blank\">company</a> plays in the transaction associated with the room.",
+          "options": {
+            "buy": "Buy",
+            "sell": "List",
+            "listbuy": "List and Buy",
+            "refi": "Refinance"
+          }
+        }
+      ],
+      "request": {
+        "host": "https://demo.rooms.docusign.com",
+        "api": "/restapi/v2/accounts/{accountId}/rooms",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/createroom/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "in": "body",
+            "name": "roleId",
+            "source": "CreateRoom_Step_1",
+            "responseParameterPath": "roleId",
+            "requestParameterPath": "roleId",
+            "description": "The role from the last step, needed to create a room"
+          }
+        ],
+        "bodyTemplate": {
+          "name": "[roomName]",
+          "roleId": "[roleId]",
+          "transactionSideId": "[transactionSide]",
+          "fieldData": {
+            "data": {
+              "address1": "[address]",
+              "city": "[city]",
+              "state": "[state]",
+              "postalCode": "[postalCode]",
+              "companyRoomStatus": "5"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

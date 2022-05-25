@@ -1,0 +1,57 @@
+table.mat-table {
+  background-color: transparent;
+
+  th.mat-header-cell {
+    padding: map-get($spacers, 4) map-get($spacers, 2);
+    background-color: $primary-5;
+    border: none;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: $font-weight-medium;
+    color: #000;
+
+    &:not(:last-child) {
+      border-right: 1px solid $light-primary; 
+    }
+
+    &:first-child {
+      border-radius: map-get($spacers, 2) 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 map-get($spacers, 2) 0 0;
+    }
+  }
+
+  td.mat-cell {
+    padding: map-get($spacers, 1) map-get($spacers, 2);
+    border: none;
+    font-family: $secondaryFontFamily;
+    font-size: 11px;
+    line-height: 15px;
+    color: $body;
+
+  }
+
+  tr.mat-row {
+    &:nth-child(odd) {
+      background-color: $light-primary;
+
+      td.mat-cell {
+        &:not(:last-child) {
+          border-right: 1px solid $primary-5; 
+        }
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: $primary-5;
+
+      td.mat-cell {
+        &:not(:last-child) {
+          border-right: 1px solid $light-primary; 
+        }
+      }
+    }
+  }
+}

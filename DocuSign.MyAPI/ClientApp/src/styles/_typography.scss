@@ -1,0 +1,81 @@
+%h1 {
+  font-family: $baseFontFamily;
+  font-size: 64px;
+  line-height: 1;
+  font-weight: $font-weight-bold;
+}
+
+%h2 {
+  font-family: $baseFontFamily;
+  font-size: 40px;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+}
+
+%h3 {
+  font-family: $baseFontFamily;
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: $font-weight-medium;
+}
+
+%h4 {
+  font-family: $baseFontFamily;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: $font-weight-medium;
+}
+
+%paragraph {
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  font-weight: $font-weight-regular;
+  color: $body;
+}
+
+%paragraph-lg {
+  font-family: $baseFontFamily;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: $font-weight-regular;
+  color: $body;
+}
+
+// Extends
+html, body {
+  @extend %paragraph;
+}
+
+h1, .h1 {
+  @extend %h1;
+}
+
+h2, .h2 {
+  @extend %h2;
+}
+
+
+h3, .h3 {
+  @extend %h3;
+}
+
+p {
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+a:not(class) {
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.warning {
+  color: $warning;
+}

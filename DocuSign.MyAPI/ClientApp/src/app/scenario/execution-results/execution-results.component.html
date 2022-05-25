@@ -1,0 +1,75 @@
+<div class="sheet__header">
+  <h2 class="sheet__title" translate>EXECUTE.RESULTS.TITLE</h2>
+  <button class="sheet__btn-clear" (click)="clearClick()" translate>
+    CLEAR_ALL
+  </button>
+  <button
+    mat-stroked-button
+    color="primary"
+    class="sheet__btn"
+    (click)="downloadClick()"
+  >
+    {{ "EXECUTE.RESULTS.DOWNLOAD" | translate }}
+    <mat-icon aria-label="view more">file_download</mat-icon>
+  </button>
+</div>
+<div class="sheet__body">
+  <table mat-table [dataSource]="results" class="mat-elevation-z8">
+    <!-- Time Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef translate>EXECUTE.RESULTS.TIME</th>
+      <td mat-cell *matCellDef="let element">
+        {{ getFormattedDate(element.dateTime) }}
+      </td>
+    </ng-container>
+
+    <!-- Scenario name Column -->
+    <ng-container matColumnDef="scenarioName">
+      <th mat-header-cell *matHeaderCellDef translate>
+        EXECUTE.RESULTS.SCENARIO_NAME
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.scenarioName }}
+      </td>
+    </ng-container>
+
+    <!-- Step name Column -->
+    <ng-container matColumnDef="stepName">
+      <th mat-header-cell *matHeaderCellDef translate>
+        EXECUTE.RESULTS.STEP_NAME
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.stepName }}</td>
+    </ng-container>
+
+    <!-- API Call Column -->
+    <ng-container matColumnDef="apiCall">
+      <th mat-header-cell *matHeaderCellDef translate>EXECUTE.RESULTS.API</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.methodType + " " + element.api }}
+      </td>
+    </ng-container>
+
+    <!-- Request Column -->
+    <ng-container matColumnDef="request">
+      <th mat-header-cell *matHeaderCellDef translate>
+        EXECUTE.RESULTS.REQUEST
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ localizeRequestBody(getRequestBody(element.requestBody)) }}
+      </td>
+    </ng-container>
+
+    <!-- Response Column -->
+    <ng-container matColumnDef="response">
+      <th mat-header-cell *matHeaderCellDef translate>
+        EXECUTE.RESULTS.RESPONSE
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ localizeResponseBody(element.response) }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

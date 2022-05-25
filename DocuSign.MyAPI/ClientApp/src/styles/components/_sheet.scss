@@ -1,0 +1,94 @@
+.sheet {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 100%;
+  background-color: $light-primary;
+  border-top: 8px solid $body;
+  transition: all 0.3s;
+  z-index: 100;
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+
+  &__inner {
+    position: relative;
+    max-width: 1808px;
+    margin: 0 auto;
+    padding-left: $container-gutters;
+    padding-right: $container-gutters;
+  }
+
+  &__action {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(104px, -100%);
+    display: flex;
+    align-items: center;
+    margin-top: -#{map-get($spacers, 2)};
+    padding: map-get($spacers, 3) map-get($spacers, 6);
+    background-color: $body;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: $white;
+    cursor: pointer;
+
+    .mat-icon {
+      margin-left: map-get($spacers, 1);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: map-get($spacers, 4) 0;
+  }
+
+  &__title {
+    @extend %h3;
+  }
+
+  &__btn-clear {
+    @extend %button-text;
+    margin: 0 map-get($spacers, 4) 0 auto;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: $font-weight-medium;
+    color: $error;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  &__body {
+    @extend %custom-scrollbar;
+    max-height: 50vh;
+    margin-bottom: 20px;
+  }
+}
+
+.sheet__active {
+  .sheet__overlay {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .sheet {
+    transform: translateY(-100%);
+  }
+}

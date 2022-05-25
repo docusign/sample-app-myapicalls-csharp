@@ -1,0 +1,198 @@
+{
+  "name": "AddUser",
+  "title": "Add a User",
+  "shortDescription": "Add a new eSignature&nbsp;<a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">user</a>&nbsp;to your account",
+  "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/groups/\" target = \"_blank\">Groups</a></li><li><a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">Organizations</a></li><li><a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/permission-profiles/\" target = \"_blank\">Permission profiles</a></li><li><a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">Users</a></li></ul>",
+  "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/admin-api/reference/organization/organization/getorganizations/\" target = \"_blank\">Organization:getOrganizations</a> call retrieves a list of organizations to which your <a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">account</a> belongs. The three subsequent calls in this sample require an organization ID, which will be populated automatically with the first ID returned by this call.</p><h3><strong>Step 2</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getpermissions/\" target = \"_blank\">eSignUserManagement:getPermissions</a> call returns a list of permission profiles available in your account. A permission profile ID in the list will be used in the call that adds the user.</p><h3><strong>Step 3</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getgroups/\" target = \"_blank\">eSignUserManagement:getGroups</a> call returns a list of groups available in your account. A group ID in the list will be used in the call that adds the user.</p><h3><strong>Step 4</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/addusers/\" target = \"_blank\">eSignUserManagement:addUsers</a> call adds a user. In this request, the permission profile ID is automatically populated with the ID of the <strong>DocuSign Viewer</strong> profile from the <code>eSignUserManagement:getPermissions</code> response. The group ID is automatically populated with the ID of the <strong>Everyone</strong> group from the <code>eSignUserManagement:getGroups</code> response. This profile and group exist by default in all accounts.</p>",
+  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need an <a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">organization</a> defined in your account. To check whether the account has one, navigate to <a href = \"https://admindemo.docusign.com/authenticate?goTo=appsAndKeys\" target = \"_blank\">Apps and Keys</a>, and select <strong>Switch To</strong> in the upper left corner of the page to display a window that lists the organizations. If the account has no organizations, see the <a href = \"https://support.docusign.com/s/document-item?language=en_US&bundleId=tku1629136038406&topicId=nkj1583359134234.html&_LANG=enus\" target = \"_blank\">DocuSign Admin Guide</a> for instructions to create one.<h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To display the user</strong></h3><p>After executing step 4, or after executing the entire scenario, follow these steps to display the user:</p><ol><li>Navigate to the eSignature Admin <a href = \"https://admindemo.docusign.com/authenticate?goTo=appsAndKeys\" target = \"_blank\">Apps and Keys</a> page.</li><li>Under <strong>Users and Groups</strong> in the left navigation, select <strong>Users</strong>.</li><li>Check the <strong>Name</strong> column to find the user you added.</li><li>Select the <strong>Actions</strong> button in that row to view the user details or perform other operations.</li></ol>",
+  "categories": [
+    "Admin API"
+  ],
+  "areas": [
+    "Group",
+    "Organization",
+    "Permission Profile",
+    "User"
+  ],
+  "steps": [
+    {
+      "name": "AddUser_Step_1",
+      "title": "Step 1: Retrieve organization information",
+      "description": "<p>To execute this API call:</p><ol><li>Select <strong>Execute</strong>. You do not need to supply any values before executing this call.</li><li>After the call has been executed, select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "parametersPrompts": [],
+      "request": {
+        "host": "https://api-d.docusign.net/management",
+        "api": "/v2/organizations",
+        "method": "get",
+        "documentationUrl": "https://developers.docusign.com/docs/admin-api/reference/organization/organization/getorganizations/",
+        "parameters": [],
+        "bodyTemplate": {}
+      }
+    },
+    {
+      "name": "AddUser_Step_2",
+      "title": "Step 2: Retrieve permission profiles",
+      "description": "<p>To execute this API call:</p><ol><li>Select <strong>Execute</strong>. You do not need to supply any values before executing this call.</li><li>After the call has been executed, select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "parametersPrompts": [],
+      "request": {
+        "host": "https://api-d.docusign.net/management",
+        "api": "/v2/organizations/{organizationId}/accounts/{accountId}/permissions",
+        "method": "get",
+        "documentationUrl": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getpermissions/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "source": "AddUser_Step_1",
+            "responseParameterPath": "organizations[0].id",
+            "requestParameterPath": "organizationId",
+            "description": "The organization ID",
+            "error": "Could not retrieve an organization ID. Make sure at least one organization is associated with your account."
+          }
+        ],
+        "bodyTemplate": {}
+      }
+    },
+    {
+      "name": "AddUser_Step_3",
+      "title": "Step 3: Retrieve groups",
+      "description": "<p>To execute this API call:</p><ol><li>Select <strong>Execute</strong>. You do not need to supply any values before executing this call.</li><li>After the call has been executed, select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "parametersPrompts": [],
+      "request": {
+        "host": "https://api-d.docusign.net/management",
+        "api": "/v2/organizations/{organizationIdStep3}/accounts/{accountId}/groups",
+        "method": "get",
+        "documentationUrl": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getgroups/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "organizationIdStep3",
+            "in": "path",
+            "source": "AddUser_Step_1",
+            "responseParameterPath": "organizations[0].id",
+            "requestParameterPath": "organizationIdStep3",
+            "description": "The organization ID"
+          }
+        ],
+        "bodyTemplate": {}
+      }
+    },
+    {
+      "name": "AddUser_Step_4",
+      "title": "Step 4: Add a user",
+      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li></ol><p>To display the user:</p><ol><li>Navigate to the eSignature Admin <a href = \"https://admindemo.docusign.com/authenticate?goTo=appsAndKeys\" target = \"_blank\">Apps and Keys</a> page.</li><li>Under <strong>Users and Groups</strong> in the left navigation, select <strong>Users</strong>.</li><li>Check the <strong>Name</strong> column to find the user you added.</li><li>Select the <strong>Actions</strong> button in that row to view the user details or perform other operations.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "userName",
+          "type": "string",
+          "defaultValue": "Test User Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "user_name",
+          "title": "User name",
+          "note": "The full name of the <a href = \"https://developers.docusign.com/docs/admin-api/admin101/concepts/data-model/\" target = \"_blank\">user</a>."
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "defaultValue": "Test First Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "first_name",
+          "title": "First name",
+          "note": "The user&rsquo;s first name. This value and the two below will be visible in the <strong>Users</strong> list, which you can access from the <a href = \"https://admindemo.docusign.com/authenticate?goTo=appsAndKeys\" target = \"_blank\">Apps and Keys</a> left navigation."
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "defaultValue": "Test Last Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "last_name",
+          "title": "Last name",
+          "note": "The user&rsquo;s last name."
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "defaultValue": "test@email.com",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "email",
+          "title": "Email",
+          "note": "The user&rsquo;s email address."
+        }
+      ],
+      "request": {
+        "host": "https://api-d.docusign.net/management",
+        "api": "/v2/organizations/{organizationIdStep4}/accounts/{accountId}/users",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/addusers/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "organizationIdStep4",
+            "in": "path",
+            "source": "AddUser_Step_1",
+            "responseParameterPath": "organizations[0].id",
+            "requestParameterPath": "organizationIdStep4",
+            "description": "The organization ID"
+          },
+          {
+            "in": "body",
+            "name": "permissionId",
+            "source": "AddUser_Step_2",
+            "responseParameterPath": "$.permissions[?(@.name == 'DocuSign Viewer')].id",
+            "requestParameterPath": "accounts[0].permission_profile.id",
+            "description": "Permissions ID",
+            "error": "Could not retrieve ID for permission profile DocuSign Viewer."
+          },
+          {
+            "in": "body",
+            "name": "groupId",
+            "source": "AddUser_Step_3",
+            "responseParameterPath": "$.groups[?(@.name == 'Everyone')].id",
+            "requestParameterPath": "accounts[0].groups[0].id",
+            "description": "Group ID",
+            "error": "Could not retrieve ID for group Everyone."
+          }
+        ],
+        "bodyTemplate": {
+          "user_name": "[userName]",
+          "first_name": "[firstName]",
+          "last_name": "[lastName]",
+          "email": "[email]",
+          "auto_activate_memberships": "false",
+          "accounts": [
+            {
+              "permission_profile": {
+                "id": "[permissionsId]"
+              },
+              "groups": [
+                {
+                  "id": "[groupId]"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

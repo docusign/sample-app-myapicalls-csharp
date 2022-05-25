@@ -1,0 +1,27 @@
+@import "~src/styles";
+
+.filter {
+  margin-bottom: map-get($spacers, 10);
+
+  &__list {
+    @extend %list-reset;
+  }
+
+  &__title {
+    margin-bottom: map-get($spacers, 8);
+    @extend %h4;
+  }
+
+  &__item {
+    margin-bottom: map-get($spacers, 4);
+  }
+
+  &__button {
+    @extend %tag-primary;
+  }
+
+  &__exp {
+    @extend %link;
+    @extend %button-text;
+  }
+}

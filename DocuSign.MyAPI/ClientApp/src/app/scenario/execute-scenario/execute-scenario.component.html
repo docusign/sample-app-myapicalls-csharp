@@ -1,0 +1,109 @@
+<div class="execution">
+  <div class="execution__input">
+    <nav class="breadcrumbs">
+      <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a [routerLink]="['/']" class="breadcrumbs__link" translate>HOME</a>
+        </li>
+        <li class="breadcrumbs__item">
+          <a
+            [routerLink]="['/']"
+            class="breadcrumbs__link breadcrumbs__link--disabled"
+            [innerHTML]="scenario.title"
+          ></a>
+        </li>
+      </ul>
+    </nav>
+
+
+<!--
+    <div class="text">
+      <h1 class="execution__title" [innerHTML]="scenario.title"></h1>
+      <p [innerHTML]="scenario.sampleFeatures"></p>
+      <p [innerHTML]="scenario.codeFlow"></p>
+      <p [innerHTML]="scenario.description"></p>
+    </div>
+-->
+
+    <div style="align-content:flex-start">
+      <h1 class="execution__title" [innerHTML]="scenario.title"></h1>
+      <table style="align-content:flex-start;width:100%;table-layout:fixed">
+        <tr style="vertical-align:top">
+          <td style="vertical-align:top;width:50%">
+            <mat-expansion-panel style="align-content:flex-start">
+              <mat-expansion-panel-header style="padding: 30px 10px 30px 5px">
+
+                <mat-panel-title style="align-content:flex-start"><h3>Behind the scenes</h3></mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="align-content:flex-start">
+                <p class="description" [innerHTML]="scenario.sampleFeatures"></p>
+                <p class="description" [innerHTML]="scenario.codeFlow"></p>
+              </div>
+            </mat-expansion-panel>
+          </td>
+          <td style="vertical-align:top;width:50%">
+            <mat-expansion-panel style="align-content:flex-start">
+              <mat-expansion-panel-header style="padding: 30px 10px 30px 5px">
+
+                  <mat-panel-title style="align-content:flex-start"><h3>Running the sample</h3></mat-panel-title>
+
+              </mat-expansion-panel-header>
+              <div style="align-content:flex-start">
+                <p class="description" [innerHTML]="scenario.description"></p>
+              </div>
+            </mat-expansion-panel>
+          </td>
+        </tr>
+      </table>
+      <!--<p [innerHTML]="scenario.description"></p>-->
+    </div>
+
+
+    <div class="card">
+      <div class="card__header">
+        <h2 class="card__title" translate>EXECUTE.SCENARIO.OPTIONS</h2>
+      </div>
+      <div class="card__content">
+        <div class="form__input--wrapper_inline">
+          <div class="mb-2" translate>EXECUTE.SCENARIO.ITERATIONS</div>
+          <div class="form__input">
+            <mat-form-field appearance="outline" class="disable-label-floating">
+              <input
+                matInput
+                #message
+                [(ngModel)]="iterations"
+                [formControl]="formControl"
+                [errorStateMatcher]="matcher"
+              />
+              <mat-error *ngIf="!formControl.valid" translate>
+                EXECUTE.SCENARIO.ITERATIONS_VALIDATION_MESSAGE
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-hint
+          align="start"
+          [innerHTML]="'EXECUTE.SCENARIO.LIMITATION' | translate"
+        ></mat-hint>
+
+        <mat-checkbox disableRipple class="mt-6" [(ngModel)]="outputResults">
+          <span [innerHTML]="'EXECUTE.SCENARIO.DONT_SHOW' | translate"></span>
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <app-parameters-prompt
+      [parameterPrompts]="scenario.parameterPrompts"
+      [submitCallback]="onSubmitCallback"
+      scope="Scenario"
+    ></app-parameters-prompt>
+  </div>
+
+  <div class="execution__output">
+    <div>
+      <app-login-prompt
+        *ngIf="(isLoggedIn | async) === false"
+      ></app-login-prompt>
+    </div>
+  </div>
+</div>

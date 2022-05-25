@@ -1,0 +1,157 @@
+@import "~src/styles";
+
+:host {
+  display: flex;
+  height: 100%;
+}
+
+.execution {
+  flex: 1;
+  display: flex;
+
+  &__input {
+    flex: 0 0 61.07%;
+    max-width: 61.07%;
+  }
+
+  &__output {
+    flex: 0 0 38.93%;
+    max-width: 38.93%;
+  }
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    padding: map-get($spacers, 10);
+
+    .breadcrumbs {
+      margin-bottom: map-get($spacers, 4);
+    }
+
+    .text {
+      margin-bottom: map-get($spacers, 6);
+
+      span {
+        @extend %label;
+      }
+    }
+
+    &-action {
+      margin-top: map-get($spacers, 6);
+    }
+  }
+
+  &__title {
+    @extend %h2;
+    margin-bottom: map-get($spacers, 3);
+  }
+
+  &__output {
+    padding: map-get($spacers, 10);
+    background-color: $primary-5;
+    border-left: 1px solid $grey;
+  }
+}
+
+// DROPDOWN
+.dropdown {
+  margin-bottom: map-get($spacers, 8);
+
+  &__button {
+    @extend %button-text;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.endpoint {
+  .label {
+    margin-right: map-get($spacers, 2);
+  }
+}
+
+// BOX
+.box {
+  margin: map-get($spacers, 4) 0;
+  padding: map-get($spacers, 6);
+  border-radius: map-get($spacers, 2);
+  @extend %paragraph-lg;
+
+  &__warning {
+    background-color: $secondary-60;
+  }
+
+  &__text {
+    margin-bottom: map-get($spacers, 4);
+  }
+
+  &__actions {
+    display: flex;
+
+    .mat-button-base {
+      &:not(:last-child) {
+        margin-right: map-get($spacers, 4);
+      }
+    }
+  }
+}
+
+// PARAMETER
+.parameter {
+  display: flex;
+  align-items: flex-start;
+
+  &:not(:last-child) {
+    margin-bottom: map-get($spacers, 6);
+  }
+
+  &__label {
+    flex: 0 0 160px;
+    padding-right: map-get($spacers, 5);
+  }
+
+  &__input {
+    flex: 1;
+  }
+}
+
+.output {
+  &__wrapper {
+    margin-bottom: map-get($spacers, 5);
+  }
+
+  &__header {
+    @extend %button-text;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: map-get($spacers, 4);
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  &__body {
+    border-radius: map-get($spacers, 2);
+    overflow: hidden;
+  }
+
+  &__title {
+    padding: map-get($spacers, 4);
+    background-color: #0a2822;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+  }
+
+  &__code {
+    padding: map-get($spacers, 3) map-get($spacers, 1) map-get($spacers, 1);
+    background-color: $light-primary;
+
+    &-inner {
+      @extend %custom-scrollbar;
+      max-height: 400px;
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.card {
+  margin: map-get($spacers, 5) 0;
+  border: 1px solid $grey;
+  border-radius: map-get($spacers, 2);
+
+  &__header {
+    padding: map-get($spacers, 8);
+  }
+
+  &__title {
+    margin-bottom: map-get($spacers, 1);
+    @extend %h3;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    line-height: 17px;
+    color: $body-40;
+  }
+
+  &__content {
+    padding: map-get($spacers, 8);
+    border-top: 1px solid $grey;
+  }
+}
+  

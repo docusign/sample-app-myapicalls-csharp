@@ -1,0 +1,81 @@
+{
+  "HOME": "Home",
+  "LINKS": "GitHub source",
+  "GITHUB_LINK": "https://github.com/docusign/sample-app-myapicalls-csharp",
+  "LOGIN": "Log in",
+  "LOGOUT": "Log out",
+  "LOGIN_TEXT": "To execute the scenario, you must log in with your DocuSign developer account.",
+  "CREATE_ACCOUNT": "Create account",
+  "SITE_TITLE": "Discover DocuSign API Calls",
+  "SITE_DESCRIPTION": "Discover the power of DocuSign APIs. Experiment with common API calls in an interactive environment that lets you walk through the call parameters and examine the response.",
+  "FOOTER_TITLE": "Can’t find the API you’re looking for?",
+  "FOOTER_LINK": "https://developers.docusign.com/",
+  "FOOTER_LINK_TEXT": "Visit DocuSign Developer Center",
+  "COPYRIGHT": "© 2022 DocuSign Inc.",
+  "TRY_SCENARIO": "Try scenario",
+  "CLEAR_ALL": "Clear all",
+  "SELECTED_SCENARIOS": "Selected {{ value }} scenarios",
+  "CLOSE": "Close",
+
+  "ERRORS": {
+    "500": "Server error. Please try again later.",
+    "401": "Your session has expired. You will be redirected to the login page after closing this window."
+  },
+
+  "FILTER": {
+    "AREA": "By API call category",
+    "CATEGORY": "By DocuSign API",
+    "VIEW_MORE": "View more",
+    "VIEW_LESS": "View less"
+  },
+
+  "EXECUTE": {
+    "EXECUTE": "Execute",
+    "CALLS_EXECUTION": "API call execution",
+
+    "PARAMETERS": {
+      "TITLE": "Parameters",
+      "TEXT": "For your own information security, please do not use personal data.",
+      "CHOOSE_FILE": "Choose file",
+      "REQUIRED": "REQUIRED",
+      "IS_REQUIRED": "is required",
+      "EMAIL_NOT_VALID": "This email address is not valid",
+      "FILE_TOO_BIG": "The file size should be less than 1 MB"
+    },
+
+    "SCENARIO": {
+      "TITLE": "Execute scenario",
+      "DESCRIPTION": "Execute the complete scenario",
+      "OPTIONS": "Options",
+      "ITERATIONS": "Number of iterations",
+      "LIMITATION": "The scenario may be executed up to 10 times.",
+      "DONT_SHOW": "Execute without generating API call execution log",
+      "ITERATIONS_VALIDATION_MESSAGE": "Please enter a number from 1 to 10"
+    },
+
+    "STEP": {
+      "ENDPOINT_TEXT": "The API request is sent to the following endpoint:",
+      "DOCUMENTATION_TEXT": "For more information about this API call, see the",
+      "DOCUMENTATION_LINK": "DocuSign API Documentation",
+      "NEXT": "Next step",
+      "DONT_SHOW_CALLS": "Execute without logging API call execution",
+      "REQUEST_BODY": "Request body",
+      "RESPONSE_BODY": "Response body",
+      "NO_REQUEST_BODY": "The request does not have a request body",
+      "NO_RESPONSE_BODY": "The request returned an empty response",
+      "RESPONSE_JSON": "JSON",
+      "REQUEST_JSON": "JSON"
+    },
+
+    "RESULTS": {
+      "TITLE": "API calls (stored in your browser, limited to 5 MB) ",
+      "DOWNLOAD": "Download as CSV",
+      "TIME": "Time",
+      "SCENARIO_NAME": "Scenario name",
+      "STEP_NAME": "Step name",
+      "API": "API call",
+      "REQUEST": "Request body",
+      "RESPONSE": "Response body"
+    }
+  }
+}

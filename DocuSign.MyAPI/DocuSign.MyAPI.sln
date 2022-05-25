@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.MyAPI", "DocuSign.MyAPI.csproj", "{F208B5FE-1CCB-4AB5-9B7E-0BBFCA2C832B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.MyAPI.Domain", "..\DocuSign.MyAPI.Domain\DocuSign.MyAPI.Domain.csproj", "{83E196BA-8E63-42D3-A5D2-904B0097E3E3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{66D02F70-3959-4780-A758-FEEE7F3B8987}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.MyAPI.Tests", "..\DocuSign.MyAPI.Tests\DocuSign.MyAPI.Tests.csproj", "{BCEA4155-BF54-4F95-8FC9-16E26FBD0BAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{030109B8-33FD-420B-B8EE-F8DDA201B2F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F208B5FE-1CCB-4AB5-9B7E-0BBFCA2C832B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F208B5FE-1CCB-4AB5-9B7E-0BBFCA2C832B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F208B5FE-1CCB-4AB5-9B7E-0BBFCA2C832B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F208B5FE-1CCB-4AB5-9B7E-0BBFCA2C832B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E196BA-8E63-42D3-A5D2-904B0097E3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E196BA-8E63-42D3-A5D2-904B0097E3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E196BA-8E63-42D3-A5D2-904B0097E3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E196BA-8E63-42D3-A5D2-904B0097E3E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D02F70-3959-4780-A758-FEEE7F3B8987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D02F70-3959-4780-A758-FEEE7F3B8987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D02F70-3959-4780-A758-FEEE7F3B8987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D02F70-3959-4780-A758-FEEE7F3B8987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCEA4155-BF54-4F95-8FC9-16E26FBD0BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEA4155-BF54-4F95-8FC9-16E26FBD0BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEA4155-BF54-4F95-8FC9-16E26FBD0BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEA4155-BF54-4F95-8FC9-16E26FBD0BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3ED62CF-0FFB-4425-932E-9CC295EF4202}
+	EndGlobalSection
+EndGlobal

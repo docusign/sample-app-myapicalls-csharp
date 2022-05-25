@@ -1,0 +1,132 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger: none
+
+pool:
+  name: DSHC-Pool
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build "DocuSign.MyAPI.csproj" --configuration $(buildConfiguration) -o app/build
+  workingDirectory: DocuSign.MyAPI/
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- script: dotnet publish "DocuSign.MyAPI.csproj" --configuration $(buildConfiguration) -o app/publish
+  workingDirectory: DocuSign.MyAPI/
+  displayName: 'dotnet publish $(buildConfiguration)'
+
+- script: dotnet test
+  workingDirectory: DocuSign.MyAPI.Tests/
+  displayName: 'Backend tests'
+
+- script:  ng test --browsers ChromeHeadless --watch=false
+  workingDirectory: DocuSign.MyAPI/ClientApp
+  displayName: 'Frontend tests'
+
+- script: |
+    aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $(AWS_URL)
+  displayName: 'Login to AWS'
+  env:
+    AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+    AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+
+
+- script: docker build -t docusignmyapi:$(Build.BuildId) -t dshc-stage -f DocuSign.MyAPI/Dockerfile .
+  displayName: 'build docker image'
+
+- script: docker tag dshc-stage:latest $(AWS_URL)
+  displayName: 'aws tag'
+- script: docker push $(AWS_URL)
+  displayName: 'aws docker push'      
+
+
+- script: docker run --name docusignmyapi_$(Build.BuildId) -d -e DocuSign__IntegrationKey=$(docusign_client_id) -e DocuSign__SecretKey=$(docusign_client_secret) docusignmyapi:$(Build.BuildId)
+  displayName: 'Run docker container'
+
+- script: sleep 10
+  displayName: 'Wait container startup'
+
+- script: docker ps -a
+  displayName: 'running docker ps -a'
+  
+- script: docker run --network container:docusignmyapi_$(Build.BuildId) appropriate/curl --retry 3 --retry-connrefused --fail http://localhost:80/healthz
+  displayName: 'Perform healthcheck'
+
+- script: docker logs docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Fetch logs'
+
+- script: docker kill docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Delete container'
+
+- script: docker rm docusignmyapi_$(Build.BuildId)
+  condition: always()
+  displayName: 'Remove container'
+
+
+- task: SSH@0
+  displayName: Run container at LightSail instance
+  inputs:
+    sshEndpoint: 'lightsail_ssh'
+    runOptions: 'inline'
+    inline: |
+      export myvar=$(LIGHTSAIL_SERVICE_NAME)
+#      sudo docker container stop dsmyapi
+#      sudo docker container rm dsmyapi
+#      sudo docker pull $(AWS_URL)
+#      sudo docker run --rm -ti --name dsmyapi -v /home/ec2-user/efs/manifests:/app/Manifest -e DocuSign__IntegrationKey=$(DOCUSIGN_CLIENT_ID) -e DocuSign__SecretKey=$(DOCUSIGN_CLIENT_SECRET) -p 80:80 $(AWS_URL)/myapicalls:latest --name dsmyapi
+      
+    readyTimeout: '20000'
+
+
+- script: aws lightsail push-container-image --service-name $(lightsail_service_name) --label myapicalls --image docusignmyapi:$(Build.BuildId)
+  displayName: 'push image to LightSail'
+  env:
+    AWS_REGION: $(aws_region)
+    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
+
+- script: |
+      PIPELINE_IMAGE_TAG=`aws lightsail get-container-images --service $(lightsail_service_name) | jq -r .containerImages[0].image`
+      aws lightsail create-container-service-deployment --service-name $(lightsail_service_name) --containers "{\"$(lightsail_service_name)\":{\"image\":\"$PIPELINE_IMAGE_TAG\",\"environment\": {\"DocuSign__IntegrationKey\":\"$(docusign_client_id)\", \"DocuSign__SecretKey\": \"$(docusign_client_secret)\"},\"ports\":{\"80\":\"HTTP\"}}}" --public-endpoint "{\"containerName\":\"$(lightsail_service_name)\",\"containerPort\":80,\"healthCheck\":{\"path\":\"/healthz\"}}"
+  displayName: 'start new LightSail deployment'
+  env:
+    AWS_REGION: $(aws_region)
+    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
+
+- script: |
+        sleep 10
+        export state=`aws lightsail get-container-service-deployments --service-name $(lightsail_service_name) | jq -r .deployments[0].state`
+        until [ "$state" = "FAILED" ] || [ "$state" = "ACTIVE" ]; do
+            echo "state is ${state}, waiting . . ."
+            state=`aws lightsail get-container-service-deployments --service-name $(lightsail_service_name) | jq -r .deployments[0].state`    
+            sleep 60
+        done
+
+        if [ "$state" = "FAILED" ]; then
+            echo "Deployment failed."
+            aws lightsail get-container-log --service-name $(lightsail_service_name) --container-name $(lightsail_service_name)
+            exit 1;
+        fi
+
+        if [ "$state" = "ACTIVE" ]; then 
+            echo "Deployment succeeded."
+            exit 0; 
+        fi 
+  displayName: 'Wait for deployment to finish'
+  env:
+    AWS_PAGER: 
+    AWS_REGION: $(aws_region)
+    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
+
+- script: docker image prune -a -f --filter "until=72h"
+  condition: always()
+  displayName: 'cleanup'

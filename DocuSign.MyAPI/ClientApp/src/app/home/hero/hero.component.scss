@@ -1,0 +1,41 @@
+@import "~src/styles";
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 434px;
+  padding: 100px 0 120px;
+  text-align: center;
+
+  &__img {
+    @extend %position-absolute-full-size;
+    z-index: -1;
+
+    .image {
+      @extend %position-absolute-full-size;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    margin-bottom: map-get($spacers, 8);
+  }
+
+  &__subtitle {
+    max-width: 800px;
+    margin: 0 auto map-get($spacers, 6);
+    @extend %paragraph-lg;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+
+    .mat-button-base {
+      &:not(:last-child) {
+        margin-right: map-get($spacers, 6);
+      }
+    }
+  }
+}

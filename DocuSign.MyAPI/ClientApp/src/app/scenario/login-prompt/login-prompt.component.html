@@ -1,0 +1,24 @@
+<div class="box box__warning">
+  <div class="box__text" [innerHTML]="'LOGIN_TEXT' | translate"></div>
+  <div class="box__actions">
+    <a
+      class="link"
+      mat-raised-button
+      color="primary"
+      disableRipple
+      href="/account/login?returnUrl={{ url }}"
+    >
+      {{ "LOGIN" | translate }}
+      <mat-icon aria-hidden="false" aria-label="external link"
+        >arrow_right_alt</mat-icon
+      >
+    </a>
+    <a
+      class="link"
+      mat-stroked-button
+      color="primary"
+      href="https://account-d.docusign.com/signup"
+      >{{ "CREATE_ACCOUNT" | translate }}</a
+    >
+  </div>
+</div>

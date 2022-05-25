@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  docusign.myapi:
+    image: ${DOCKER_REGISTRY-}docusignmyapi
+    ports: 
+      - 5001:80
+    build:
+      context: ..
+      dockerfile: DocuSign.MyAPI\Dockerfile

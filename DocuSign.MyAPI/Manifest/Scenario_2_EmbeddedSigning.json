@@ -1,0 +1,182 @@
+{
+	"name": "EmbeddedSigning",
+	"title": "Embedded Signing",
+	"shortDescription": "Send an envelope using&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/embedding/\" target = \"_blank\">embedded signing</a>",
+	"sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">Envelopes</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/embedding/\" target = \"_blank\">Embedded signing</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">Tabs</a></li></ul>",
+	"codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/\" target = \"_blank\">Envelopes:create</a> call defines the envelope. The request&rsquo;s <code>clientUserId</code> property indicates that this is an <em>embedded signing</em> transaction, which enables <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipients</a> to sign <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">documents</a> from within your app instead of accessing them via an email (known as <a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">remote signing</a>). A <code>clientUserId</code>, along with a name and email address, uniquely identifies a signer. This request also defines the document to be signed, and a signature tab at a <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/fixed/\" target = \"_blank\">fixed position</a> on that document.</p><h3><strong>Step 2</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/\" target = \"_blank\">EnvelopeViews:createRecipient</a> request generates a <em>recipient signing URL</em>, which is the page where you can sign the document. The client user ID, signer name, and email that you supply for this call must match the ones supplied for the first call. The <code>envelopeId</code> in this request is automatically populated with the ID returned in the response to the <code>Envelopes:create</code> call.</p>",
+	"description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need a file that you can select to use as the document to be signed.</p><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To visit the recipient signing URL</strong></h3><p>After executing step 2, or after executing the entire scenario, follow these steps to navigate to the signing URL:</p><ol><li>If the <strong>API call execution</strong> list at the bottom of the screen is not displayed, click the <strong>API call execution</strong> tab to display it.</li><li>Locate the row for the most recently executed step with step name <strong>EmbeddedSigning_Step_2</strong>. It should be the first row in the list.</li><li>In the <strong>Response body</strong> column for that row, copy the value of the <code>url</code> response parameter. Be sure to copy the entire value, which wraps to several lines.</li><li>In a new browser tab or window, paste the copied value into the browser&rsquo;s URL field and press <strong>Enter</strong>. The signing URL is displayed, and you can sign the document.</li><li>After signing, you&rsquo;ll be redirected to a page that displays an <code>event</code> query parameter that indicates the outcome of the signing process.</li></ol>",
+	"categories": [
+		"eSignature REST API"
+
+	],
+	"areas": [
+		"Envelope",
+		"Embedded Signing",
+		"Tabs"
+	],
+	"steps": [
+		{
+			"name": "EmbeddedSigning_Step_1",
+			"title": "Step 1: Create envelope with embedded recipient",
+			"description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.</li><li>Select <strong>Execute</strong>.</li><li>After the call has been executed, select <strong>Next step</strong> to supply parameters for the next call and execute it.</li></ol>",
+			"parametersPrompts": [
+				{
+					"name": "document1",
+					"type": "file",
+					"defaultValue": "",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "documents[0].documentBase64;documents[0].name;documents[0].fileExtension;",
+					"title": "Envelope creation call: Document",
+					"note": "A <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">document</a> that will be sent to the envelope recipient for signature. Most common file types are supported."
+				},
+				{
+					"name": "clientUserId",
+					"type": "string",
+					"defaultValue": "1",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "recipients.signers[0].clientUserId",
+					"title": "Envelope creation call: Client user ID",
+					"note": "A unique identifier for the signer."
+				},
+				{
+					"name": "signerName",
+					"type": "string",
+					"defaultValue": "Test Signer Name",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "recipients.signers[0].name",
+					"title": "Envelope creation call: Signer name",
+					"note": "The name of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipient</a> who will sign the document."
+				},
+				{
+					"name": "signerEmail",
+					"type": "string",
+					"defaultValue": "example@email.com",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "recipients.signers[0].email",
+					"title": "Envelope creation call: Signer email",
+					"note": "The signer&rsquo;s email address."
+				}
+			],
+			"request": {
+				"host": "https://demo.docusign.net",
+				"api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+				"method": "post",
+				"documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+				"parameters": [
+					{
+						"name": "accountId",
+						"requestParameterPath": "accountId",
+						"in": "path",
+						"description": "The external account number (int) or account ID GUID."
+					}
+				],
+				"bodyTemplate": {
+					"emailSubject": "Please sign this document set",
+					"documents": [
+						{
+							"documentBase64": "[document1]",
+							"name": "Sample document",
+							"fileExtension": "txt",
+							"documentId": "1"
+						}
+					],
+					"recipients": {
+						"signers": [
+							{
+								"email": "[signerEmail]",
+								"name": "[signerName]",
+								"recipientId": "1",
+								"routingOrder": "1",
+								"clientUserId": "[clientUserId]",
+								"tabs": {
+									"signHereTabs": [
+										{
+											"tabId": "signature",
+											"xposition": "400",
+											"yposition": "500",
+											"required": "true",
+											"documentId": "1",
+											"pageNumber": "1",
+											"tabOrder": "1"
+										}
+									]
+								}
+							}
+						]
+					},
+					"status": "sent"
+				}
+			}
+		},
+		{
+			"name": "EmbeddedSigning_Step_2",
+			"title": "Step 2: Generate recipient signing URL",
+			"description": "<p>To execute this API call, supply all parameter values below and select <strong>Execute</strong>.</p><p>After executing this step, follow this procedure to navigate to the signing URL:</p><ol><li>If the <strong>API call execution</strong> list at the bottom of the screen is not displayed, click the <strong>API call execution</strong> tab to display it.</li><li>Locate the row for the most recently executed step with step name <strong>EmbeddedSigning_Step_2</strong>. It should be the first row in the list.</li><li>In the <strong>Response body</strong> column for that row, copy the value of the <code>url</code> response parameter. Be sure to copy the entire value, which wraps to several lines.<br><strong>Note:</strong> Instead of copying the value from the <strong>API call execution</strong> list below, you can copy it from the <strong>Response body</strong> section to the right.</li><li>In a new browser tab or window, paste the copied value into the browser&rsquo;s URL field and press <strong>Enter</strong>. The signing URL is displayed, and you can sign the document.</li><li>After signing, you&rsquo;ll be redirected to a page that displays an <code>event</code> query parameter that indicates the outcome of the signing process.</li></ol>",
+			"parametersPrompts": [
+				{
+					"name": "step2clientUserId",
+					"type": "string",
+					"defaultValue": "1",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "clientUserId",
+					"title": "Signing URL call: Client user ID",
+					"note": "A unique identifier for the signer. Enter the same value that you entered for the client user ID above (if you are running the entire scenario) or during step 1."
+				},
+				{
+					"name": "step2signerName",
+					"type": "string",
+					"defaultValue": "Test Signer Name",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "userName",
+					"title": "Signing URL call: Signer name",
+					"note": "The name of the recipient who will sign the document. Enter the same value that you entered for the signer name above (if you are running the entire scenario) or during step 1."
+				},
+				{
+					"name": "step2signerEmail",
+					"type": "string",
+					"defaultValue": "example@email.com",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "email",
+					"title": "Signing URL call: Signer email",
+					"note": "The signer&rsquo;s email address. Enter the same value that you entered for the signer email above (if you are running the entire scenario) or during step 1."
+				}
+			],
+			"request": {
+				"host": "https://demo.docusign.net",
+				"api": "/restapi/v2.1/accounts/{accountId}/envelopes/{envelopeId}/views/recipient",
+				"method": "post",
+				"documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+				"parameters": [
+					{
+						"name": "accountId",
+						"requestParameterPath": "accountId",
+						"in": "path",
+						"description": "The external account number (int) or account ID GUID."
+					},
+					{
+						"name": "envelopeId",
+						"in": "path",
+						"source": "EmbeddedSigning_Step_1",
+						"responseParameterPath": "envelopeId",
+						"requestParameterPath": "envelopeId",
+						"description": "The envelope ID"
+					}
+				],
+				"bodyTemplate": {
+					"clientUserId": "[clientUserId]",
+					"userName": "[signerName]",
+					"email": "[signerEmail]",
+					"returnUrl": "http://httpbin.org/get",
+					"authenticationMethod": "none"
+				}
+			}
+		}
+	]
+}

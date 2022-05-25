@@ -1,0 +1,22 @@
+<footer class="footer">
+  <div class="footer__top">
+    <picture class="footer__img">
+      <source srcset="../../assets/images/footer-bg.webp" type="image/webp" />
+      <img class="image" src="../../assets/images/footer-bg.jpg" alt="" />
+    </picture>
+    <div class="container">
+      <p class="footer__title" [innerHTML]="'FOOTER_TITLE' | translate"></p>
+      <a class="footer__link" href="{{ 'FOOTER_LINK' | translate }}" target="_blank" translate>
+        FOOTER_LINK_TEXT
+        <mat-icon aria-hidden="false" aria-label="external link"
+          >launch</mat-icon
+        >
+      </a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="container">
+      <p class="copy" translate>COPYRIGHT</p>
+    </div>
+  </div>
+</footer>
