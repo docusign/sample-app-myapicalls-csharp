@@ -22,7 +22,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// TODO: Investigate a secure way to include a link to swagger file in deployed application
+// builder.Services.AddSwaggerGen();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IApiManifestProvider, ApiManifestProvider>();
 builder.Services.AddHttpClient<IExecuteScenarioService, ExecuteScenarioService>();
@@ -66,7 +69,7 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("dtr.company.write");
     options.Scope.Add("room_forms");
     options.Scope.Add("notary_write");
-    options.Scope.Add("notary_read");  
+    options.Scope.Add("notary_read");
 
     options.SaveTokens = true;
 
@@ -170,8 +173,10 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+// TODO: Investigate a secure way to include a link to swagger file in deployed application
+// app.UseSwagger();
+// app.UseSwaggerUI();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
