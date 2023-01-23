@@ -4,7 +4,7 @@
   "shortDescription": "Send an envelope created from a&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/\" target = \"_blank\">template</a>&nbsp;for&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">remote signing</a>",
   "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/\" target = \"_blank\">Templates</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">Envelopes</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">Remote signing</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">Tabs</a></li></ul>",
   "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>A <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/\" target = \"_blank\">Templates:create</a> call defines the template, including two placeholder <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipients</a>&#8212;a signer and a carbon copy recipient. The template specifies the placeholder recipients&rsquo; routing order and tabs, but their names and email addresses won&rsquo;t be populated until the envelope is created in the next call. The <code>roleName</code> defined for each placeholder recipient in this call will be used in the next call to associate the recipient with a name and email address. The template also specifies the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/\" target = \"_blank\">document</a> to be sent for signature.</p><h3><strong>Step 2</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/\" target = \"_blank\">Envelopes:create</a> request creates an envelope from the template. The template ID in this call is automatically populated with the ID returned in the response to the <code>Templates:create</code> call. The <code>roleName</code> values in this call match the ones from the previous call. As a result, the name and email values supplied in this call are populated for the correct recipients defined in the template. When this request is sent, the envelope is created and immediately sent to the signer via email.</p>",
-  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need a file that you can select to use as the document to be signed.</p><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To display the template</strong></h3><p>After executing step 2, or after executing the entire scenario, follow these steps to display the template:</p><ol><li>Navigate to the eSignature Admin <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">Templates</a> page.</li><li>Check the <strong>Name</strong> column to find the template you added.</li><li>Select the button in that row to view the template details or perform other operations.</li></ol>",
+  "description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need a file that you can select to use as the document to be signed.</p><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To display the template</strong></h3><p>After executing step 2, or after executing the entire scenario, follow these steps to display the template:</p><ol><li>Navigate to the eSignature web app <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">Templates</a> page.</li><li>Check the <strong>Name</strong> column to find the template you added.</li><li>Select the button in that row to view the template details or perform other operations.</li></ol>",
   "categories": [
     "eSignature REST API"
   ],
@@ -28,7 +28,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "name",
           "title": "Template name",
-          "note": "A unique name for the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/\" target = \"_blank\">template</a>. This name is not visible to the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">envelope</a> recipient. The template is displayed under this name in the eSignature Admin <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">templates list</a>."
+          "note": "A unique name for the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/\" target = \"_blank\">template</a>. This name is not visible to the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">envelope</a> recipient. The template is displayed under this name in the eSignature web app <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">templates list</a>."
         },
         {
           "name": "description",
@@ -38,7 +38,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "description",
           "title": "Template description",
-          "note": "A brief description of the template. This description is not visible to the envelope recipient. It is displayed when you select the <strong>Edit</strong> option for the template in the eSignature Admin <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">templates list</a>."
+          "note": "A brief description of the template. This description is not visible to the envelope recipient. It is displayed when you select the <strong>Edit</strong> option for the template in the eSignature web app <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">templates list</a>."
         },
         {
           "name": "document1",
@@ -68,7 +68,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorString",
           "title": "Anchor tagging:<br/>Anchor string",
-          "note": "A word or phrase in the selected file that identifies the area where the signature <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">tab</a> should appear. This is the <em>anchor</em> component of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\" target = \"_blank\">anchor tagging</a> feature. This value is not case-sensitive. If the value entered here does not exist in the selected document, the signature tab will not appear."
+          "note": "A word or phrase in the selected file that identifies the area where the Sign Here <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">tab</a> should appear. This is the <em>anchor</em> component of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\" target = \"_blank\">anchor tagging</a> feature. This value is not case-sensitive. If the value entered here does not exist in the selected document, the Sign Here tab will not appear."
         },
         {
           "name": "anchorXOffset",
@@ -78,7 +78,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorXOffset",
           "title": "Anchor tagging:<br/>X offset",
-          "note": "The number of inches to the right of the anchor string (defined above) for placement of the signature tab."
+          "note": "The number of inches to the right of the anchor string (defined above) for placement of the Sign Here tab."
         },
         {
           "name": "anchorYOffset",
@@ -88,7 +88,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "recipients.signers[0].tabs.signHereTabs[0].anchorYOffset",
           "title": "Anchor tagging:<br/>Y offset",
-          "note": "The number of inches below the anchor string (defined above) for placement of the signature tab."
+          "note": "The number of inches below the anchor string (defined above) for placement of the Sign Here tab."
         },
         {
           "name": "xposition",
@@ -98,7 +98,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "recipients.signers[0].tabs.dateSignedTabs[0].xposition",
           "title": "Fixed positioning:<br/>X position",
-          "note": "The number of points from the left side of the page for placement of a read-only date field. A point is equal to one 72nd of an inch. Defining an absolute position for a tab in this manner is known as <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/fixed/\" target = \"_blank\">fixed positioning</a>."
+          "note": "The number of points from the left side of the page for placement of a Date Signed tab. A point is equal to one 72nd of an inch. Defining an absolute position for a tab in this manner is known as <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/fixed/\" target = \"_blank\">fixed positioning</a>."
         },
         {
           "name": "yposition",
@@ -108,7 +108,7 @@
           "requestParameterType": "body",
           "requestParameterPath": "recipients.signers[0].tabs.dateSignedTabs[0].yposition",
           "title": "Fixed positioning:<br/>Y position",
-          "note": "The number of points below the top of the page for placement of a read-only date field. A point is equal to one 72nd of an inch."
+          "note": "The number of points below the top of the page for placement of a Date Signed tab. A point is equal to one 72nd of an inch."
         }
       ],
       "request": {
@@ -184,7 +184,7 @@
     {
       "name": "RemoteSigningTemplate_Step_2",
       "title": "Step 2: Create an envelope from a template",
-      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li></ol><p>To display the template:</p><ol><li>Navigate to the eSignature Admin <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">Templates</a> page.</li><li>Check the <strong>Name</strong> column to find the template you added.</li><li>Select the button in that row to view the template details or perform other operations.</li></ol>",
+      "description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li></ol><p>To display the template:</p><ol><li>Navigate to the eSignature web app <a href = \"https://appdemo.docusign.com/templates\" target = \"_blank\">Templates</a> page.</li><li>Check the <strong>Name</strong> column to find the template you added.</li><li>Select the button in that row to view the template details or perform other operations.</li></ol>",
       "parametersPrompts": [
         {
           "name": "signerName",
