@@ -1,0 +1,139 @@
+{
+	"name": "CreateActivateElasticTemplate",
+	"title": "Create and Activate an Elastic Template",
+	"shortDescription": "Create an&nbsp;<a href = \"https://developers.docusign.com/docs/click-api/click101/concepts/\" target = \"_blank\">elastic template</a>&nbsp;to capture consent with a single click</a>",
+	"codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>A <a href = \"https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/\" target = \"_blank\">ClickWraps:createClickwrap</a> call defines the <a href = \"https://developers.docusign.com/docs/click-api/click101/concepts/\" target = \"_blank\">elastic template</a>, which is an iframe containing an agreement to which a user can consent. The elastic template definition includes an identifying name, a display name, an agreement document, and a label for the button that users select to provide consent. Upon creation, the elastic template will be inactive, which is the default status for new elastic templates.</p><h3><strong>Step 2</strong></h3><p>A <code>ClickWraps:updateClickwrapVersionByNumber</code> request updates the elastic template status to <code>active</code>, which allows the elastic template to be used. The elastic template ID and version number in this call are automatically populated with the ID and version returned in the response to the <code>ClickWraps:createClickwrap</code> call.</p>",
+	"description": "<h2>Prerequisites</h2><p>To run this scenario, you&rsquo;ll need a file that you can select to use as the agreement document.</p><h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol><h3><strong>To display, edit, or test the elastic template</strong></h3><p>After executing step 2, or after executing the entire scenario, follow these steps to display, edit, or test the elastic template:</p><ol><li>Navigate to the eSignature web app <a href = \"https://appdemo.docusign.com/templates?view=active&type=elastic\" target = \"_blank\">elastic templates list</a>.</li><li>Check the <strong>Name</strong> column to find the elastic template you created.</li><li>Next to the <strong>Copy Code</strong> button in that row, click the arrow and select <strong>Edit</strong> to view and edit the elastic template, or select <strong>Test Elastic Template</strong> to test it. See <a href = \"https://developers.docusign.com/docs/click-api/how-to/test-elastic-template/\" target = \"_blank\">How to test an elastic template</a> for details.</li></ol>",
+	"categories": [
+		"Click API"
+	],
+	"areas": [
+		"Elastic Templates"
+	],
+	"steps": [
+		{
+			"name": "CreateActivateElasticTemplate_Step_1",
+			"title": "Step 1: Create an elastic template",
+			"description": "<p>To execute this API call:</p><ol><li>Supply all parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li><li>After the call has been executed, select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+			"parametersPrompts": [
+				{
+					"name": "clickName",
+					"type": "string",
+					"defaultValue": "Test Elastic Template",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "name",
+					"title": "Elastic template name",
+					"note": "A name that identifies the <a href = \"https://developers.docusign.com/docs/click-api/click101/concepts/\" target = \"_blank\">elastic template</a>. This will appear in the eSignature web app <a href = \"https://appdemo.docusign.com/templates?view=active&type=elastic\" target = \"_blank\">list of elastic templates</a> associated with your account."
+				},
+				{
+					"name": "document1",
+					"type": "file",
+					"defaultValue": "",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "documents[0].documentBase64;documents[0].name;documents[0].fileExtension;",
+					"title": "Agreement document",
+					"note": "A file that will be displayed as the agreement to which users can consent. Most common file types are supported."
+				},
+				{
+					"name": "displayName",
+					"type": "string",
+					"defaultValue": "Test Agreement",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "displaySettings.displayName",
+					"title": "Display name",
+					"note": "A title that will appear at the top of the agreement."
+				},
+				{
+					"name": "buttonText",
+					"type": "string",
+					"defaultValue": "I Agree",
+					"required": true,
+					"requestParameterType": "body",
+					"requestParameterPath": "displaySettings.consentButtonText",
+					"title": "Consent button text",
+					"note": "Text that will appear on the button that users select to consent to the agreement."
+				}
+			],
+			"request": {
+				"host": "https://demo.docusign.net",
+				"api": "/clickapi/v1/accounts/{accountId}/clickwraps",
+				"method": "post",
+				"documentationUrl": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/",
+				"parameters": [
+					{
+						"name": "accountId",
+						"in": "path",
+						"requestParameterPath": "accountId",
+						"description": "The external account number (int) or account ID GUID."
+					}
+				],
+				"bodyTemplate": {
+					"displaySettings": {
+						"consentButtonText": "[buttonText]",
+						"displayName": "[displayName]",
+						"downloadable": true,
+						"format": "modal",
+						"hasAccept": true,
+						"mustRead": true,
+						"mustView": false,
+						"requireAccept": true,
+						"size": "medium",
+						"documentDisplay": "document"
+					},
+					"documents": [
+						{
+							"documentBase64": "[document1]",
+							"documentName": "Terms of Service",
+							"fileExtension": "pdf",
+							"order": 0
+						}
+					],
+					"name": "[clickName]",
+					"requireReacceptance": true
+				}
+			}
+		},
+		{
+			"name": "CreateActivateElasticTemplate_Step_2",
+			"title": "Step 2: Activate an elastic template",
+			"description": "<p>To execute this API call, select <strong>Execute</strong>.</p><p>After executing this call, follow these steps to display, edit, or test the elastic template:</p><ol><li>Navigate to the eSignature web app <a href = \"https://appdemo.docusign.com/templates?view=active&type=elastic\" target = \"_blank\">elastic templates list</a>.</li><li>Check the <strong>Name</strong> column to find the elastic template you created.</li><li>Next to the <strong>Copy Code</strong> button in that row, click the arrow and select <strong>Edit</strong> to view and edit the elastic template, or select <strong>Test Elastic Template</strong> to test it. See <a href = \"https://developers.docusign.com/docs/click-api/how-to/test-elastic-template/\" target = \"_blank\">How to test an elastic template</a> for details.</li></ol>",
+			"parametersPrompts": [],
+			"request": {
+				"host": "https://demo.docusign.net",
+				"api": "/clickapi/v1/accounts/{accountId}/clickwraps/{clickwrapId}/versions/{versionNumber}",
+				"method": "put",
+				"documentationUrl": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/",
+				"parameters": [
+					{
+						"name": "accountId",
+						"requestParameterPath": "accountId",
+						"in": "path",
+						"description": "The external account number (int) or account ID GUID."
+					},
+					{
+						"name": "clickwrapId",
+						"in": "path",
+						"source": "CreateActivateElasticTemplate_Step_1",
+						"responseParameterPath": "clickwrapId",
+						"requestParameterPath": "clickwrapId",
+						"description": "The elastic template ID"
+					},
+					{
+						"name": "versionNumber",
+						"in": "path",
+						"source": "CreateActivateElasticTemplate_Step_1",
+						"responseParameterPath": "versionNumber",
+						"requestParameterPath": "versionNumber",
+						"description": "The elastic template version number"
+					}
+				],
+				"bodyTemplate": {
+					"status": "active"
+				}
+			}
+		}
+	]
+}
