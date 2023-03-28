@@ -87,6 +87,8 @@ builder.Services.AddAuthentication(options =>
             var user = JsonSerializer.Deserialize<UserInfo>(await response.Content.ReadAsStringAsync());
 
             context.Identity.AddClaim(new Claim("accountId", user.Accounts.First().Id, ClaimValueTypes.String));
+            context.Identity.AddClaim(new Claim("email", user.Email, ClaimValueTypes.String));
+            context.Identity.AddClaim(new Claim("name", user.Name, ClaimValueTypes.String));
         }
     };
 })
