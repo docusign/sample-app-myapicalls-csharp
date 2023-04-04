@@ -22,6 +22,7 @@ import {
 } from '../models/execute-scenario';
 import { IScenarioExecutionResult } from '../models/scenario-execution-result';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 interface Dictionary<T> {
   [Key: string]: T;
 }
@@ -63,7 +64,8 @@ export class StepComponent implements OnInit {
     private executionResultService: ExecutionResultService,
     @Inject(ParametersPromptNotificationService)
     private parametersPromptNotificationService: ParametersPromptNotificationService,
-    @Inject(TranslateService) private translateService: TranslateService
+    @Inject(TranslateService) private translateService: TranslateService,
+    @Inject(LocalStorageService) private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class StepComponent implements OnInit {
         step.parameterPrompts.forEach((parameter) => {
           parameter.stepName = step.name;
         });
-
+        
         this.jsonBody = JSON.parse(step.bodyTemplate);
 
         this.stepInfo = step;
@@ -90,6 +92,7 @@ export class StepComponent implements OnInit {
         this.parametersPromptNotificationService.parameter$.subscribe(
           (data) => {
             if(data.parameter.stepName == this.step.name) {
+              this.localStorageService.setItem(this.scenarioId + "_" + data.parameter.name, data.value);
               this.updateRequestBody(data);
               this.updateRequestPath(data);
             }
@@ -167,8 +170,13 @@ export class StepComponent implements OnInit {
         if (previousStep !== undefined) {
           const json = JSON.parse(previousStep.response);
           const jp = require('jsonpath');
-          const value = jp.value(json, parameter.responseParameterPath);
+          let value = jp.value(json, parameter.responseParameterPath);
 
+          if (parameter.isFromUi)
+          {
+            value = this.localStorageService.getItem(this.scenarioId + "_" + parameter.name)
+          }
+          
           if (value !== undefined) {
             if (parameter.in === 'body') {
               const newParameter: IParameterValue = {

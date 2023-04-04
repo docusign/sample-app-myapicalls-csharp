@@ -30,6 +30,14 @@ export class LocalStorageService {
     }
   }
 
+  setItem(name: string, value: string){
+    localStorage.setItem(name, value);
+  }
+
+  getItem(name: string): string | null {
+    return localStorage.getItem(name);
+  }
+
   clearStorage() {
     this.setResults([]);
   }
