@@ -146,4 +146,9 @@
       height: 100%;
     }
   }
+
+  ::ng-deep .mat-step-header[aria-labelledby="disabled"] {
+    pointer-events: none !important;
+    cursor: default;
+  }
 }

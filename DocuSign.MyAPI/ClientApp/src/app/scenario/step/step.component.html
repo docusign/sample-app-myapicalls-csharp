@@ -6,6 +6,12 @@
           <a [routerLink]="['/']" class="breadcrumbs__link" translate>HOME</a>
         </li>
         <li class="breadcrumbs__item">
+          <a [routerLink]="['/scenario/' + scenarioId]"
+             class="breadcrumbs__link"
+             [innerHTML]="scenarioTitle"
+             (click)="openMain()"></a>
+        </li>
+        <li class="breadcrumbs__item">
           <a [routerLink]="['/']"
              class="breadcrumbs__link breadcrumbs__link--disabled"
              [innerHTML]="step.title"></a>

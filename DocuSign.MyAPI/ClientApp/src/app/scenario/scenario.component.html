@@ -32,6 +32,7 @@
   <mat-step
     *ngFor="let step of scenario.steps; let i = index"
     [completed]="step.completed"
+    [aria-labelledby]="isStepDisabled(scenario.steps, i - 1) ? 'disabled' : ''"
   >
     <ng-template matStepLabel>
       <div class="step__header">
@@ -48,9 +49,11 @@
     <ng-template matStepContent>
       <app-step
         [scenarioId]="scenarioId"
+        [scenarioTitle]="scenario.title"
         [step]="step"
         [stepIndex]="i"
         (executeEvent)="onExecuteEvent($event)"
+        (navigateToMain)="navigateToStep(stepper, 0)"
       ></app-step>
     </ng-template>
   </mat-step>
