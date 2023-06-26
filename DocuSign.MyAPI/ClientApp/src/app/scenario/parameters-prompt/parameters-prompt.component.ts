@@ -66,7 +66,7 @@ export class ParametersPromptComponent
     this.createForm();
 
     if ((this.form.controls?.parametersPrompts as FormArray).length > 0) {
-      this.formCreated.next();
+      this.formCreated.next({});
     }
   }
 
