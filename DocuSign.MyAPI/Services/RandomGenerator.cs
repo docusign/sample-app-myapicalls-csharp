@@ -11,7 +11,7 @@
 
         public int Generate()
         {
-            return _random.Next(1, 100);
+            return _random.Next(1, 1000);
         }
     }
 }

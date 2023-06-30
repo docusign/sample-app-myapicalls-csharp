@@ -50,7 +50,8 @@
       "ITERATIONS": "Number of iterations",
       "LIMITATION": "The scenario may be executed up to 10 times.",
       "DONT_SHOW": "Execute without generating API call execution log",
-      "ITERATIONS_VALIDATION_MESSAGE": "Please enter a number from 1 to 10"
+      "ITERATIONS_VALIDATION_MESSAGE": "Please enter a number from 1 to 10",
+      "EXECUTION_COMPLETE": "Execution complete"
     },
 
     "STEP": {

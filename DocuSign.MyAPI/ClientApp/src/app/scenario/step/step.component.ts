@@ -36,7 +36,9 @@ export class StepComponent implements OnInit {
   parametersPromptComponent!: ParametersPromptComponent;
   @Input() step!: IScenarioStep;
   @Input() scenarioId!: number;
+  @Input() scenarioTitle!: string;
   @Input() stepIndex!: number;
+  @Output() navigateToMain = new EventEmitter<void>();
   @Output() executeEvent = new EventEmitter<boolean>();
   pathParam: Dictionary<string> = {};
 
@@ -289,6 +291,10 @@ export class StepComponent implements OnInit {
 
   executeStep() {
     this.parametersPromptComponent.onSubmit();
+  }
+
+  openMain() {
+    this.navigateToMain.emit();
   }
 
   get isLoggedIn(): Observable<boolean> {
