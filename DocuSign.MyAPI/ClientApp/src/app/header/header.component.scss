@@ -26,6 +26,11 @@
           color: $primary;
         }
       }
+
+      &.text{
+        color: $primary;
+        border: 0px;
+      }
     }
 
     &-link {

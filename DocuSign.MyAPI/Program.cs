@@ -88,6 +88,8 @@ builder.Services.AddAuthentication(options =>
             var account = user.Accounts.FirstOrDefault(acc => acc.IsDefault);
 
             context.Identity.AddClaim(new Claim("accountId", account.Id, ClaimValueTypes.String));
+            context.Identity.AddClaim(new Claim("email", user.Email, ClaimValueTypes.String));
+            context.Identity.AddClaim(new Claim("name", user.Name, ClaimValueTypes.String));
         }
     };
 })

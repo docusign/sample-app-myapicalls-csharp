@@ -19,4 +19,5 @@ export interface IParameter {
   description: string;
   responseParameterPath: string;
   source: string;
+  isFromUi: boolean;
 }

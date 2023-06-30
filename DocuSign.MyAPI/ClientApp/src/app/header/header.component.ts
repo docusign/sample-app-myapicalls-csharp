@@ -27,6 +27,14 @@ export class AppHeaderComponent implements OnInit {
     return this.accountService.isLoggedIn();
   }
 
+  get loggedUserName(): Observable<string> {
+    return this.accountService.currentUserName;
+  }
+
+  get loggedEmail(): Observable<string> {
+    return this.accountService.currentEmail;
+  }
+
   logout(): void {
     this.accountService.logout();
   }

@@ -6,16 +6,26 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AccountService {
   accountId: string = '';
+  userName: string = '';
+  email: string = '';
   accountReceived: boolean = false;
   accountId$ = new BehaviorSubject(this.accountId);
+  userName$ = new BehaviorSubject(this.userName);
+  email$ = new BehaviorSubject(this.email);
   logoutActions$: Observable<any>[] = new Array();
 
   constructor(private http: HttpClient) {
-    this.getAccountId().subscribe(
-      (account) => {
-        this.accountId = account.id;
-        this.accountId$.next(account.id);
+    this.getAccountInfo().subscribe(
+      (info) => {
+        this.accountId = info.id;
+        this.accountId$.next(info.id);
         this.accountReceived = true;
+
+        this.userName = info.name;
+        this.userName$.next(info.name);
+
+        this.email = info.email;
+        this.email$.next(info.email);
 
         return this.accountId.length > 0;
       },
@@ -33,7 +43,15 @@ export class AccountService {
     return this.accountId$;
   }
 
-  private getAccountId(): Observable<any> {
+  get currentUserName(): Observable<string> {
+    return this.userName$;
+  }
+
+  get currentEmail(): Observable<string> {
+    return this.email$;
+  }
+
+  private getAccountInfo(): Observable<any> {
     return this.http.get('api/account', this.httpOptions);
   }
 

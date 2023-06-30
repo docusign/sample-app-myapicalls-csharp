@@ -12,8 +12,15 @@ namespace DocuSign.MyAPI.Controllers
         public async Task<ActionResult<String>> GetAccountId()
         {
             var accountId = HttpContext.User.FindFirst("accountId");
+            var name = HttpContext.User.FindFirst("name");
+            var email = HttpContext.User.FindFirst("email");
 
-            return Ok(new { id = accountId == null ? string.Empty : accountId.Value });
+            return Ok(new
+            {
+                id = accountId == null ? string.Empty : accountId.Value,
+                name = name == null ? String.Empty : name.Value,
+                email = email == null ? String.Empty : email.Value
+            });
         }
 
         [HttpGet]
