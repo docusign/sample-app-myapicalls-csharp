@@ -78,7 +78,7 @@ public class ScenariosController : ControllerBase
     {
         try
         {
-            var response = await _executeScenarioService.ExecuteScenarioStep(model.ScenarioNumber, model.StepName, model.Parameters, model.PreviousStepResponses);
+            var response = await _executeScenarioService.ExecuteScenarioStep(model.ScenarioNumber, model.StepName, model.Parameters, model.PreviousStepResponses, model.PreviousStepParameters);
 
             return Ok(response);
         }

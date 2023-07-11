@@ -18,6 +18,8 @@ import { ParametersPromptNotificationService } from '../services/parameters-prom
 import { IParameterValue } from '../models/parameter-prompt';
 import {
   IExecuteScenarioStep,
+  IStepParameterValue,
+  IStepParameters,
   IStepResponse,
 } from '../models/execute-scenario';
 import { IScenarioExecutionResult } from '../models/scenario-execution-result';
@@ -216,12 +218,37 @@ export class StepComponent implements OnInit {
             <IStepResponse>{ stepName: item.stepName, response: item.response }
         );
     }
+    var previousParameters: IStepParameters[] = [];
+    if (this.stepIndex > 0) {
+      previousParameters = this.localStorageService.getStepParameters(this.scenarioId);
+    }
+
     const model: IExecuteScenarioStep = {
       scenarioNumber: this.scenarioId,
       stepName: this.stepInfo.name,
       parameters: args === null ? '' : JSON.stringify(args),
       previousStepResponses: previousResponses,
+      previousStepParameters: previousParameters,
     };
+
+    var currentParametersValue: IStepParameterValue[] = [];
+    let parameters;
+    if (typeof args === 'object' && args !== null) {
+      parameters = args;
+    } else if (args !== null && args.trim() !== "") {
+      parameters = JSON.parse(args);
+    }
+
+    if (parameters) {
+      for (const [name, value] of Object.entries(parameters)) {
+        currentParametersValue.push({ name, value });
+      }
+      var currentStepParameters: IStepParameters = {
+        stepName: this.stepInfo.name,
+        parameters: currentParametersValue,
+      };
+      this.localStorageService.setStepParameters(this.scenarioId, [...previousParameters, currentStepParameters]);
+    }
 
     this.scenarioService
       .executeScenarioStep(model)

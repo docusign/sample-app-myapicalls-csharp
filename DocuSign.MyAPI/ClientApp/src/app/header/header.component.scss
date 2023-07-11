@@ -27,9 +27,9 @@
         }
       }
 
-      &.text{
-        color: $primary;
+      &-text{
         border: 0px;
+        font-weight: bold;
       }
     }
 
