@@ -54,15 +54,15 @@
             </a>
           </li>
           <li class="header__menu-item">
-            <a
-            class="text"
+            <p
+            class="header__menu-item-text"
             color="primary"
             *ngIf="isLoggedIn | async"
           >
             {{loggedUserName | async}}
             <br>
             {{loggedEmail | async}}
-          </a>
+          </p>
           </li>
         </ul>
       </nav>

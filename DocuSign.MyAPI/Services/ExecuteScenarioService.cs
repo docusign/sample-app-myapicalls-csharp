@@ -55,6 +55,7 @@ namespace DocuSign.MyAPI.Services
             for (int i = 1; i <= iterationsCount; i++)
             {
                 var executionResponsesWithinScenario = new List<ExecutionResponse>();
+                var previousStepParametersWithinScenario = new List<(string, List<(string, JProperty)>)>();
 
                 var parameters = new List<(string, JProperty)>();
 
@@ -70,6 +71,14 @@ namespace DocuSign.MyAPI.Services
                         executionResponsesWithinScenario.Select(x => (StepResponse)x).ToArray(),
                         step.Request.Parameters);
                     parameters.AddRange(jPropertiesFromPreviousStep);
+
+                    if (previousStepParametersWithinScenario.Count > 0)
+                    {
+                        var previousParameters = GetValuesFromPreviousStepsParameters(previousStepParametersWithinScenario, step.Request.Parameters);
+                        parameters.AddRange(previousParameters);
+                    }
+
+                    previousStepParametersWithinScenario.Add((step.Name, jPropertiesFromRequest));
 
                     ExecutionResponse response = await ExecuteStep(step, scenario, parameters);
                     response.ScenarioName = scenario.Name;
@@ -87,7 +96,7 @@ namespace DocuSign.MyAPI.Services
             return executionResponsesAll;
         }
 
-        public async Task<ExecutionResponse> ExecuteScenarioStep(int scenarioNumber, string stepName, string requestParameters, StepResponse[] previouseStepResponses)
+        public async Task<ExecutionResponse> ExecuteScenarioStep(int scenarioNumber, string stepName, string requestParameters, StepResponse[] previouseStepResponses, StepParameters[] previousStepParameters)
         {
             var parameters = new List<(string, JProperty)>();
             Scenario scenario;
@@ -118,6 +127,12 @@ namespace DocuSign.MyAPI.Services
             if (previouseStepResponses?.Length > 0)
             {
                 List<(string, JProperty)> jPropertiesFromPreviousStep = GetParametersFromPreviousSteps(previouseStepResponses, step.Request.Parameters);
+                parameters.AddRange(jPropertiesFromPreviousStep);
+            }
+
+            if (previousStepParameters?.Length > 0)
+            {
+                List<(string, JProperty)> jPropertiesFromPreviousStep = GetValuesFromPreviousStepsParameters(previousStepParameters, step.Request.Parameters);
                 parameters.AddRange(jPropertiesFromPreviousStep);
             }
 
@@ -284,7 +299,7 @@ namespace DocuSign.MyAPI.Services
         {
             var jProperties = new List<(string, JProperty)>();
 
-            IEnumerable<Parameter> filteredStepParameters = stepParameters.Where(a => !String.IsNullOrEmpty(a.Source));
+            IEnumerable<Parameter> filteredStepParameters = stepParameters.Where(a => !String.IsNullOrEmpty(a.Source) && string.IsNullOrEmpty(a.isFromUi) || string.Equals(a.isFromUi, "false", StringComparison.CurrentCultureIgnoreCase));
 
             Dictionary<string, JObject> responsesByStepName = executionResponses
                 .Where(x => !string.IsNullOrEmpty(x.Response))
@@ -329,6 +344,64 @@ namespace DocuSign.MyAPI.Services
                     jProperties.Add((stepParameter.In, new JProperty(stepParameter.RequestParameterPath, claimValue.Value)));
                 }
             }
+            return jProperties;
+        }
+
+        internal List<(string, JProperty)> GetValuesFromPreviousStepsParameters(StepParameters[] previousParamameters, Parameter[] stepParameters)
+        {
+            var jProperties = new List<(string, JProperty)>();
+            IEnumerable<Parameter> filteredStepParameters = stepParameters.Where(a => !String.IsNullOrEmpty(a.Source) && string.Equals(a.isFromUi, "true", StringComparison.CurrentCultureIgnoreCase));
+
+            var emptyParameterException = "The response parameter is empty.";
+
+            foreach (var stepParameter in filteredStepParameters)
+            {
+                var parameters = previousParamameters.FirstOrDefault(s => string.Equals(s.StepName, stepParameter.Source, StringComparison.CurrentCultureIgnoreCase));
+                if (parameters == null)
+                {
+                    throw new ScenarioExecutionException(stepParameter.Error ?? emptyParameterException);
+                }
+
+                var sourceProperty = parameters.Parameters.FirstOrDefault(p => string.Equals(p.Name, stepParameter.Name, StringComparison.CurrentCultureIgnoreCase));
+                if (sourceProperty == null)
+                {
+                    throw new ScenarioExecutionException(stepParameter.Error ?? emptyParameterException);
+                }
+
+                var prop = new JProperty(stepParameter.Name, sourceProperty.Value.ToString());
+
+                jProperties.Add((stepParameter.In, prop));
+            }
+
+            return jProperties;
+        }
+
+        internal List<(string, JProperty)> GetValuesFromPreviousStepsParameters(List<(string, List<(string, JProperty)>)> previousParamameters, Parameter[] stepParameters)
+        {
+            var jProperties = new List<(string, JProperty)>();
+            IEnumerable<Parameter> filteredStepParameters = stepParameters.Where(a => !String.IsNullOrEmpty(a.Source) && string.Equals(a.isFromUi, "true", StringComparison.CurrentCultureIgnoreCase));
+
+            var emptyParameterException = "The response parameter is empty.";
+
+            foreach (var stepParameter in filteredStepParameters)
+            {
+                var parameters = previousParamameters.FirstOrDefault(s => string.Equals(s.Item1, stepParameter.Source, StringComparison.CurrentCultureIgnoreCase));
+                if (string.IsNullOrEmpty(parameters.Item1) || parameters.Item2 == null)
+                {
+                    throw new ScenarioExecutionException(stepParameter.Error ?? emptyParameterException);
+                }
+
+                var sourceProperty = parameters.Item2.FirstOrDefault(p => string.Equals(p.Item2.Name, stepParameter.Name, StringComparison.CurrentCultureIgnoreCase));
+                if (string.IsNullOrEmpty(sourceProperty.Item1) || sourceProperty.Item2 == null)
+                {
+                    throw new ScenarioExecutionException(stepParameter.Error ?? emptyParameterException);
+                }
+
+                var prop = new JProperty(stepParameter.Name, sourceProperty.Item2.Value.ToString());
+
+                jProperties.Add((stepParameter.In, prop));
+            }
+
             return jProperties;
         }
 

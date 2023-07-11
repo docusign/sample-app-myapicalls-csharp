@@ -3,6 +3,8 @@
       @extend %list-reset;
       display: flex;
       align-items: center;
+      display: flex;
+      flex-wrap: wrap;
     }
   
     &__link {
@@ -11,6 +13,7 @@
       font-weight: $font-weight-black;
       color: $body-60;
       text-decoration: none;
+      white-space: nowrap;
   
       &::after {
         display: inline-block;

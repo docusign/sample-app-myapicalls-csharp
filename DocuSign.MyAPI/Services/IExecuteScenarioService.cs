@@ -1,4 +1,5 @@
-﻿using DocuSign.MyAPI.Models;
+﻿using DocuSign.MyAPI.Domain;
+using DocuSign.MyAPI.Models;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("DocuSign.MyAPI.Tests")]
@@ -7,6 +8,6 @@ namespace DocuSign.MyAPI.Services
     public interface IExecuteScenarioService
     {
         Task<IList<ExecutionResponse>> ExecuteScenario(int scenarioNumber, string requestParameters, int iterationsCount);
-        Task<ExecutionResponse> ExecuteScenarioStep(int scenarioNumber, string stepName, string parameters, StepResponse[] previouseStepResponse);
+        Task<ExecutionResponse> ExecuteScenarioStep(int scenarioNumber, string stepName, string parameters, StepResponse[] previouseStepResponse, StepParameters[] previousStepParameters);
     }
 }
