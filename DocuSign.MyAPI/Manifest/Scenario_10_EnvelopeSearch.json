@@ -1,0 +1,272 @@
+{
+  "name": "EnvelopeSearch",
+  "title": "Envelope Search with Resend",
+  "shortDescription": "Conduct an&nbsp;<a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/search/\" target = \"_blank\">envelope search</a>&nbsp;and resend an envelope returned in the results",
+  "sampleFeatures": "<h2>This sample features</h2><ul><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/\" target = \"_blank\">Envelopes</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/\" target = \"_blank\">Remote signing</a></li><li><a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\" target = \"_blank\">Tabs</a></li></ul>",
+  "codeFlow": "<h2>Code flow</h2><h3><strong>Step 1</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/\" target = \"_blank\">Envelopes:create</a> request creates an envelope and sends it to the signer via email.</p><h3><strong>Step 2</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> request returns a list of envelopes in <code>delivered</code> or <code>sent</code> status. Envelopes in these statuses can be resent. You can narrow the search by supplying additional filter criteria. The first envelope ID in the search results will be used for the resend in the next call.</p><h3><strong>Step 3</strong></h3><p>An <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/\" target = \"_blank\">Envelopes:update</a> request is automatically populated with the envelope ID passed from the previous request. It includes the query parameter <code>resend_envelope=true</code>, causing the envelope to be resent.</p>",
+  "description": "<h2>Scenario execution instructions</h2><h3><strong>To execute API calls one by one</strong></h3><p>Select <strong>Step 1</strong> in the left navigation and follow the instructions on the page.</p><p><strong>Note:</strong> Run the scenario using this method if you want to experiment with supplying different envelope search parameters, to see how they affect the search results.</p><h3><strong>To execute all API calls consecutively</strong></h3><p>Supply all required values in the <strong>Parameters</strong> section below and select <strong>Execute</strong>.</p><h3><strong>To execute all API calls multiple times</strong></h3><ol><li>Enter the number of executions in the <strong>Options</strong> section.</li><li>Supply all required values in the <strong>Parameters</strong> section.<br/><strong>Note:</strong> You can configure a parameter to have a unique value for each execution by inserting the text <code>{random}</code> or <code>{iteration}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number and <code>{iteration}</code> will be replaced with the number of the execution.</li><li>Select <strong>Execute</strong>.</li></ol>",
+  "categories": [
+    "eSignature REST API"
+  ],
+  "areas": [
+    "Envelope",
+    "Remote Signing",
+    "Tabs"
+  ],
+  "steps": [
+    {
+      "name": "EnvelopeSearch_Step_1",
+      "title": "Step 1: Create and send an envelope",
+      "description": "<p>To execute this API call:</p><ol><li>Supply parameter values below.<br/><strong>Note:</strong> You can configure a parameter to have a unique value by inserting the text <code>{random}</code>, including the curly braces, anywhere in the value. At execution time, <code>{random}</code> will be replaced with a random number.</li><li>Select <strong>Execute</strong>.</li><li>After the call has been executed, select <strong>Next step</strong> to supply parameters for the next call and execute it.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "signerName",
+          "type": "string",
+          "defaultValue": "Test Signer Name",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].name",
+          "title": "Signer name",
+          "note": "The name of the <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/\" target = \"_blank\">recipient</a> who will sign the document."
+        },
+        {
+          "name": "signerEmail",
+          "type": "string",
+          "defaultValue": "example@email.com",
+          "required": true,
+          "requestParameterType": "body",
+          "requestParameterPath": "recipients.signers[0].email",
+          "title": "Signer email",
+          "note": "The signer&rsquo;s email address. The envelope will be sent to this address."
+        }
+      ],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes",
+        "method": "post",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          }
+        ],
+        "bodyTemplate": {
+          "emailSubject": "Please sign this document set",
+          "documents": [
+            {
+              "documentBase64": "dGVzdCBkb2M=",
+              "name": "Test Document",
+              "fileExtension": "txt",
+              "documentId": "1"
+            }
+          ],
+          "recipients": {
+            "signers": [
+              {
+                "email": "[signerEmail]",
+                "name": "[signerName]",
+                "recipientId": "1",
+                "routingOrder": "1",
+                "tabs": {
+                  "signHereTabs": [
+                    {
+                      "stampType": "signature",
+                      "name": "SignHere",
+                      "tabLabel": "signatureTab",
+                      "scaleValue": "1",
+                      "optional": "false",
+                      "documentId": "1",
+                      "recipientId": "1",
+                      "pageNumber": "1",
+                      "xPosition": "73",
+                      "yPosition": "440"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "status": "sent"
+        }
+      }
+    },
+    {
+      "name": "EnvelopeSearch_Step_2",
+      "title": "Step 2: Search for an envelope",
+      "description": "<p>To execute this API call:</p><ol><li>Supply parameter values below. As you enter or change values, the query parameters are updated in the <code>GET</code> request shown below. For more information about any of the query parameters, see <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a>.</li><li>Select <strong>Execute</strong>.</li><li>To see how changes to the search filters affect the results, you can change parameter values and select <strong>Execute</strong> after each change to see the updated search results.</li><li>Select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "parametersPrompts": [
+        {
+          "name": "fromDate",
+          "type": "string",
+          "defaultValue": "2023-01-01",
+          "required": true,
+          "requestParameterType": "path",
+          "requestParameterPath": "fromDate",
+          "title": "From date",
+          "note": "Beginning date for the envelope search. For example: <code>2023-01-01</code>. You can also enter a date-time in ISO 8601 format. For example: <code>2023-01-01T00:00Z</code>."
+        },
+        {
+          "name": "toDate",
+          "type": "string",
+          "defaultValue": "",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "toDate",
+          "title": "To date",
+          "note": "Ending date for the envelope search. For example: <code>2023-01-01</code>. You can also enter a date-time in ISO 8601 format. For example: <code>2023-01-01T00:00Z</code>."
+        },
+        {
+          "name": "searchText",
+          "type": "string",
+          "defaultValue": "",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "searchText",
+          "title": "Search text",
+          "note": "A string that must be present in an envelope&rsquo;s email subject, email address, recipient name, sender name, or custom envelope fields in order for the envelope to be included in the search results."
+        },
+        {
+          "name": "envelopeStatus",
+          "type": "string",
+          "defaultValue": "delivered,sent",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "envelopeStatus",
+          "title": "Envelope status",
+          "note": "One or more <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/status-codes/#envelope-status-code-descriptions\" target = \"_blank\">envelope statuses</a> to filter by. To include envelopes in more than one status, enter a list of statuses separated by commas.<br/><strong>Note:</strong> If you filter by statuses other than <code>delivered</code> or <code>sent</code>, the search can return envelopes that are not in a valid status to resend. This may cause the request in step 3 to fail."
+        },
+        {
+          "name": "startPosition",
+          "type": "string",
+          "defaultValue": "",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "startPosition",
+          "title": "Start position",
+          "note": "Enter a non-zero value in this filter to reduce the number of envelopes returned by the search. For example, if 100 envelopes match the other filter criteria, entering 10 for this value causes the search to omit the first 10 envelopes from the results."
+        },
+        {
+          "name": "count",
+          "type": "string",
+          "defaultValue": "",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "count",
+          "title": "Count",
+          "note": "Enter a value in this filter to set the maximum number of envelopes to return in the search results."
+        },
+        {
+          "name": "include",
+          "type": "select",
+          "defaultValue": "",
+          "required": false,
+          "requestParameterType": "path",
+          "requestParameterPath": "include",
+          "title": "Include",
+          "note": "Select a value for the <code>include</code> query parameter to specify additional information to include about envelopes in the search results. See <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> for details about the information each option returns.<br/><strong>Note:</strong> Although this field only allows the selection of a single value, the <code>include</code> query parameter accepts a comma-delimited list of values.",
+          "options": {
+            "attachments": "attachments",
+            "custom_fields": "custom_fields",
+            "documents": "documents",
+            "extensions": "extensions",
+            "folders": "folders",
+            "recipients": "recipients",
+            "payment_tabs": "payment_tabs",
+            "powerform": "powerform"
+          }
+        }
+      ],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes?search_text={searchText}&from_date={fromDate}&to_date={toDate}&status={envelopeStatus}&start_position={startPosition}&count={count}&include={include}",
+        "method": "get",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "requestParameterPath": "accountId",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "searchText",
+            "in": "path",
+            "requestParameterPath": "searchText",
+            "description": "Search text"
+          },
+          {
+            "name": "fromDate",
+            "in": "path",
+            "requestParameterPath": "fromDate",
+            "description": "From date"
+          },
+          {
+            "name": "toDate",
+            "in": "path",
+            "requestParameterPath": "toDate",
+            "description": "To date"
+          },
+          {
+            "name": "envelopeStatus",
+            "in": "path",
+            "requestParameterPath": "envelopeStatus",
+            "description": "Envelope status"
+          },
+          {
+            "name": "startPosition",
+            "in": "path",
+            "requestParameterPath": "startPosition",
+            "description": "Start position"
+          },
+          {
+            "name": "count",
+            "in": "path",
+            "requestParameterPath": "count",
+            "description": "Count"
+          },
+          {
+            "name": "include",
+            "in": "path",
+            "requestParameterPath": "include",
+            "description": "Include"
+          }
+        ],
+        "bodyTemplate": {}
+      }
+    },
+    {
+      "name": "EnvelopeSearch_Step_3",
+      "title": "Step 3: Resend an envelope",
+      "description": "<p>To execute this API call, select <strong>Execute</strong>.</p><p><strong>Note:</strong> If the previous request did not return any envelopes, this message will be displayed when you try to execute this request: <strong>Unable to resend envelope. The Envelopes:listStatusChanges request did not return any envelopes.</strong></p>",
+      "parametersPrompts": [],
+      "request": {
+        "host": "https://demo.docusign.net",
+        "api": "/restapi/v2.1/accounts/{accountId}/envelopes/{envelopeId}?resend_envelope=true",
+        "method": "put",
+        "documentationUrl": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/",
+        "parameters": [
+          {
+            "name": "accountId",
+            "requestParameterPath": "accountId",
+            "in": "path",
+            "description": "The external account number (int) or account ID GUID."
+          },
+          {
+            "name": "envelopeId",
+            "in": "path",
+            "source": "EnvelopeSearch_Step_2",
+            "responseParameterPath": "envelopes[0].envelopeId",
+            "requestParameterPath": "envelopeId",
+            "description": "The envelope ID",
+            "error": "Unable to resend envelope. The Envelopes:listStatusChanges request did not return any envelopes."
+          }
+        ],
+        "bodyTemplate": {
+        }
+      }
+    }
+  ]
+}
