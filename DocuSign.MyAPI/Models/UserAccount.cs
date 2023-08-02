@@ -6,5 +6,8 @@ namespace DocuSign.MyAPI.Models
     {
         [JsonPropertyName("account_id")]
         public string Id { get; set; }
+
+        [JsonPropertyName("is_default")]
+        public bool IsDefault { get; set; }
     }
 }

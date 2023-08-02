@@ -10,6 +10,8 @@ import { ScenarioService } from './services/scenario-service';
 import { IScenarioInfo } from './models/scenario-info';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { AccountService } from './../services/account-service';
+import { MatStepper } from '@angular/material/stepper';
+import { IScenarioStep } from './models/scenario-step';
 
 @Component({
   selector: 'app-scenario',
@@ -81,4 +83,14 @@ export class ScenarioComponent implements OnInit, AfterViewChecked {
   onExecuteEvent = (arg: boolean): void => {
     this.isResultsShown = arg;
   };
+
+  navigateToStep = (stepper: MatStepper, stepNumber: number): void => {
+    stepper.selectedIndex = stepNumber;
+  }
+
+  isStepDisabled = (steps: IScenarioStep[], stepNumber: number): boolean => {
+    const firstUncompletedStep = steps.findIndex((step) => !step.completed);
+
+    return firstUncompletedStep !== -1 && firstUncompletedStep <= stepNumber;
+  }
 }

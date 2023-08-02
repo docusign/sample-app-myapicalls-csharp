@@ -19,7 +19,9 @@ namespace DocuSign.MyAPI.Domain
         public string ResponseParameterPath { get; set; }
 
         public string Source { get; set; }
-        
+
         public string Error { get; set; }
+
+        public string isFromUi { get; set; }
     }
 }

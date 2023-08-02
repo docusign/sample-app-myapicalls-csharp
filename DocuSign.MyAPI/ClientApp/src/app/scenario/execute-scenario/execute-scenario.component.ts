@@ -14,6 +14,8 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IScenarioExecutionResult } from '../models/scenario-execution-result';
+import { NotificationService } from 'src/app/services/notification-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-execute-scenario',
@@ -50,7 +52,11 @@ export class ExecuteScenarioComponent {
     @Inject(ExecutionResultService)
     private executionResultService: ExecutionResultService,
     @Inject(ParametersPromptNotificationService)
-    private parametersPromptNotificationService: ParametersPromptNotificationService
+    private parametersPromptNotificationService: ParametersPromptNotificationService,
+    @Inject (NotificationService)
+    private notificationService: NotificationService,
+    @Inject (TranslateService)
+    private translateService: TranslateService
   ) {}
 
   onSubmitCallback = (args: any): void => {
@@ -70,6 +76,13 @@ export class ExecuteScenarioComponent {
 
           if (!this.outputResults) {
             this.executionResultService.addResults(results);
+          }
+          else {
+            this.translateService
+            .get('EXECUTE.SCENARIO.EXECUTION_COMPLETE')
+            .subscribe((res: string) => {
+              this.notificationService.showInfo(res);
+            });
           }
 
           this.executeEvent.emit(!this.outputResults);

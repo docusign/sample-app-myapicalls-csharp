@@ -53,6 +53,17 @@
               >
             </a>
           </li>
+          <li class="header__menu-item">
+            <p
+            class="header__menu-item-text"
+            color="primary"
+            *ngIf="isLoggedIn | async"
+          >
+            {{loggedUserName | async}}
+            <br>
+            {{loggedEmail | async}}
+          </p>
+          </li>
         </ul>
       </nav>
     </div>
