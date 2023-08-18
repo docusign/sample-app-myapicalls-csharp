@@ -18,7 +18,7 @@
     <!-- Time Column -->
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef translate>EXECUTE.RESULTS.TIME</th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element align-text-in-table">
         {{ getFormattedDate(element.dateTime) }}
       </td>
     </ng-container>
@@ -28,7 +28,7 @@
       <th mat-header-cell *matHeaderCellDef translate>
         EXECUTE.RESULTS.SCENARIO_NAME
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element align-text-in-table">
         {{ element.scenarioName }}
       </td>
     </ng-container>
@@ -38,13 +38,13 @@
       <th mat-header-cell *matHeaderCellDef translate>
         EXECUTE.RESULTS.STEP_NAME
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.stepName }}</td>
+      <td mat-cell *matCellDef="let element align-text-in-table">{{ element.stepName }}</td>
     </ng-container>
 
     <!-- API Call Column -->
     <ng-container matColumnDef="apiCall">
       <th mat-header-cell *matHeaderCellDef translate>EXECUTE.RESULTS.API</th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element align-text-in-table">
         {{ element.methodType + " " + element.api }}
       </td>
     </ng-container>
@@ -54,7 +54,7 @@
       <th mat-header-cell *matHeaderCellDef translate>
         EXECUTE.RESULTS.REQUEST
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element align-text-in-table">
         {{ localizeRequestBody(getRequestBody(element.requestBody)) }}
       </td>
     </ng-container>
@@ -64,7 +64,7 @@
       <th mat-header-cell *matHeaderCellDef translate>
         EXECUTE.RESULTS.RESPONSE
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element align-text-in-table">
         {{ localizeResponseBody(element.response) }}
       </td>
     </ng-container>
