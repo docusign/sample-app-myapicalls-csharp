@@ -23,8 +23,14 @@
         <strong [innerHTML]="'EXECUTE.STEP.ENDPOINT_TEXT' | translate"></strong>
       </p>
       <p class="endpoint">
-        <span class="label label__primary">{{ stepInfo.method }}</span>
-        <strong>{{ apiUrl }}</strong>
+        <div class="flex">
+          <div>
+            <span class="label label__primary">{{ stepInfo.method }}</span>
+          </div>
+          <div class="urlWrapper">
+            <strong>{{ apiUrl }}</strong>
+          </div>
+        </div>
       </p>
     </div>
 

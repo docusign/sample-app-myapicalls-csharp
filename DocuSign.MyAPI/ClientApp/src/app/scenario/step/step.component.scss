@@ -65,6 +65,15 @@
   }
 }
 
+.flex {
+  display: flex;
+}
+
+.urlWrapper {
+  margin-left: 15px;
+  width: 100%;
+}
+
 .endpoint {
   .label {
     margin-right: map-get($spacers, 2);
