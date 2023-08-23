@@ -22,7 +22,7 @@
       <p>
         <strong [innerHTML]="'EXECUTE.STEP.ENDPOINT_TEXT' | translate"></strong>
       </p>
-      <p class="endpoint">
+      <div class="endpoint">
         <div class="flex">
           <div>
             <span class="label label__primary">{{ stepInfo.method }}</span>
@@ -31,7 +31,7 @@
             <strong>{{ apiUrl }}</strong>
           </div>
         </div>
-      </p>
+      </div>
     </div>
 
     <app-parameters-prompt

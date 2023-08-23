@@ -4,13 +4,12 @@ import { Directive, ElementRef, Renderer2, AfterViewInit, HostListener } from '@
   selector: '[appCommaBreak]'
 })
 export class CommaBreakDirective implements AfterViewInit {
-
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.updateText();
-    }, 1);
+    }, 0);
   }
 
   @HostListener('window:resize', ['$event'])
