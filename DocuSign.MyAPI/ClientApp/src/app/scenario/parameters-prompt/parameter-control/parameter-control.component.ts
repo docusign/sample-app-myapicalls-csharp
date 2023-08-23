@@ -7,6 +7,7 @@ import {
 } from '../../models/parameter-prompt';
 import { ParametersPromptNotificationService } from '../../services/parameters-prompts-notification.service';
 import { AppSettings } from '../../../app.settings';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-parameter-control',
@@ -22,6 +23,8 @@ export class ParameterControlComponent implements OnInit {
   fileName: string | undefined;
   fileValue: string = '';
   fileSizeError = 'fileSizeError';
+  selectedValues: string[] = [];
+  optionSelected: boolean = false;
 
   constructor(
     @Inject(ParametersPromptNotificationService)
@@ -57,6 +60,11 @@ export class ParameterControlComponent implements OnInit {
       this.form.addControl(
         this.parameter.name + '_base64',
         new FormControl(this.parameter.name + '_base64')
+      );
+    } else if (this.parameter.type == ParameterPromptType.multiselect) {
+      this.form.addControl(
+        this.parameter.name + '_visible',
+        new FormControl(this.parameter.name + '_visible')
       );
     } else {
       this.control?.valueChanges.subscribe((data) => {
@@ -123,5 +131,23 @@ export class ParameterControlComponent implements OnInit {
       parameter: this.parameter,
       value: this.fileValue,
     });
+  }
+
+  handleMultiselectChange(event: MatSelectChange, parameterName: string) {
+    this.selectedValues = event.value;
+    this.form.patchValue({
+      [parameterName]: event.value.join(',')
+    });
+  }
+
+  resetSelection(parameterName: string, parameterType: string) {
+    if (parameterType === ParameterPromptType.multiselect) {
+      this.selectedValues = [];
+      this.form.get(`${parameterName}_visible`)?.setValue([]);
+      return this.form.get(parameterName)?.setValue([]);
+    }
+
+    this.optionSelected = false;
+    this.form.get(parameterName)?.setValue('');
   }
 }
