@@ -155,7 +155,7 @@ export class StepComponent implements OnInit {
         this.pathParam[param]
       );
     }
-    this.apiUrl = resultingPath;
+    this.apiUrl = resultingPath.replace(/,/g, ',\u200B');
   }
 
   getParameterFromResponse(results: IScenarioExecutionResult[]) {

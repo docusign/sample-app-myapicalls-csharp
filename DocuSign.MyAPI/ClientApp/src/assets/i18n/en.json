@@ -40,7 +40,8 @@
       "REQUIRED": "REQUIRED",
       "IS_REQUIRED": "is required",
       "EMAIL_NOT_VALID": "This email address is not valid",
-      "FILE_TOO_BIG": "The file size should be less than 1 MB"
+      "FILE_TOO_BIG": "The file size should be less than 1 MB",
+      "CLEAR_SELECTION": "CLEAR SELECTION"
     },
 
     "SCENARIO": {
