@@ -43,7 +43,7 @@ namespace DocuSign.MyAPI.Tests
             var authResult = AuthenticateResult.Success(
                 new AuthenticationTicket(new ClaimsPrincipal(), "DocuSign"));
 
-            authResult.Properties.StoreTokens(new[]
+            authResult.Properties?.StoreTokens(new[]
             {
               new AuthenticationToken { Name = "access_token", Value = "token_123" }
             });
@@ -694,7 +694,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -706,7 +706,7 @@ namespace DocuSign.MyAPI.Tests
             var expectedBody = JToken.Parse("{\"name\": \"Vas\", \"email\": \"val2\"}").ToString();
 
             //Act
-            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, null);
+            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, new StepResponse[]{}, new StepParameters[]{});
 
             //Assert
             Assert.Equal("https://testApi.com/api/createEntity/accountId123", response.API);
@@ -743,7 +743,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -756,7 +756,7 @@ namespace DocuSign.MyAPI.Tests
             var expectedBody = JToken.Parse("{\"name\": \"User 25 name\", \"email\": \"val2\"}").ToString();
 
             //Act
-            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, null);
+            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, new StepResponse[]{}, new StepParameters[]{});
 
             //Assert
             Assert.Equal("https://testApi.com/api/createEntity/accountId123", response.API);
@@ -793,7 +793,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -805,7 +805,7 @@ namespace DocuSign.MyAPI.Tests
             var expectedBody = JToken.Parse("{\"name\": \"[name]\", \"email\": \"val2\"}").ToString();
 
             //Act
-            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, null);
+            var response = await _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, new StepResponse[]{}, new StepParameters[]{});
 
             //Assert
             Assert.Equal("https://testApi.com/api/createEntity/accountId123", response.API);
@@ -824,7 +824,7 @@ namespace DocuSign.MyAPI.Tests
             var parameters = "[{\"Name\": \"Vas\", \"stepName\": \"TestStep\"}]";
 
             //Act
-            var result = () => _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, null);
+            var result = () => _executeScenarioService.ExecuteScenarioStep(scenarioNumber, stepName, parameters, new StepResponse[]{}, new StepParameters[]{});
 
             //Assert
             await result.Should().ThrowAsync<NotFoundStepException>().WithMessage("Step with name TestStep is not found.");
@@ -872,7 +872,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -921,7 +921,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -989,7 +989,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -1087,7 +1087,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
@@ -1184,7 +1184,7 @@ namespace DocuSign.MyAPI.Tests
                                 new Parameter
                                 {
                                     RequestParameterPath = "accountId",
-                                    Source = null,
+                                    Source = string.Empty,
                                     In = "Path"
                                 }
                             }
