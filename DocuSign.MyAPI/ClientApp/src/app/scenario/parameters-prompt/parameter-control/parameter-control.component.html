@@ -14,6 +14,10 @@
             <span class="warning" translate>EXECUTE.PARAMETERS.REQUIRED</span>
           </strong>
 
+          <strong *ngIf="!parameter.required && selectedValues.length > 0 || optionSelected" class="form__label">
+            <span class="clear-selection" (click)="resetSelection(parameter.name, parameter.type)" translate>EXECUTE.PARAMETERS.CLEAR_SELECTION</span>
+          </strong>
+
           <mat-form-field appearance="outline" class="disable-label-floating">
             <mat-label
               *ngIf="parameter.type !== ParameterPromptType.file"
@@ -86,6 +90,28 @@
                 *ngSwitchCase="ParameterPromptType.select"
                 [formControlName]="parameter.name"
                 [required]="parameter.required"
+                (selectionChange)="optionSelected=true"
+              >
+                <mat-option *ngFor="let opt of options" [value]="opt.key">
+                  {{ opt.value }}
+                </mat-option>
+              </mat-select>
+              <!-- multiselect -->
+              <input
+                [id]="parameter.name"
+                *ngSwitchCase="ParameterPromptType.multiselect"
+                [formControlName]="parameter.name"
+                type="text"
+                hidden
+              />
+              <mat-select
+                [id]="parameter.name + '_visible'"
+                *ngSwitchCase="ParameterPromptType.multiselect"
+                [formControlName]="parameter.name + '_visible'"
+                [required]="parameter.required"
+                [ngModel]="[]"
+                (selectionChange)="handleMultiselectChange($event, parameter.name)"
+                multiple
               >
                 <mat-option *ngFor="let opt of options" [value]="opt.key">
                   {{ opt.value }}
@@ -131,7 +157,7 @@
           >
             EXECUTE.PARAMETERS.FILE_TOO_BIG
           </div>
-          <mat-hint align="start" [innerHTML]="parameter.note"></mat-hint>
+          <mat-hint align="start" [innerHTML]="parameter.note" appCommaBreak></mat-hint>
         </div>
       </div>
     </div>

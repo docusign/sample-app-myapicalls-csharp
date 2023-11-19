@@ -79,3 +79,8 @@ a:not(class) {
 .warning {
   color: $warning;
 }
+
+.clear-selection {
+  color: $warning;
+  cursor: pointer;
+}

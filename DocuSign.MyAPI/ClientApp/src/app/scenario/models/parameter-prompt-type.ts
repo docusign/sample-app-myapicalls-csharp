@@ -4,4 +4,5 @@ export enum ParameterPromptType {
   email = 'email',
   select = 'select',
   text = 'text',
+  multiselect = 'multiselect',
 }

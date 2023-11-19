@@ -31,6 +31,10 @@ table.mat-table {
     line-height: 15px;
     color: $body;
 
+    &.api-cell {
+      white-space: pre-line;
+    }
+
   }
 
   tr.mat-row {

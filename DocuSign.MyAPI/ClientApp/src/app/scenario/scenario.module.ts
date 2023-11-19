@@ -27,6 +27,7 @@ import { FileService } from './services/file.service';
 import { ParametersPromptNotificationService } from './services/parameters-prompts-notification.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { FormsModule } from '@angular/forms';
     MatExpansionModule,
     TranslateModule.forChild(),
     FormsModule,
+    DirectivesModule,
   ],
   providers: [
     {
