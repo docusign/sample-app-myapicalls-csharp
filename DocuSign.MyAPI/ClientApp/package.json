@@ -32,25 +32,25 @@
     "popper.js": "^1.16.1",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.1",
-    "tslib": "^2.5.3",
-    "zone.js": "~0.11.8"
+    "tslib": "^2.6.2",
+    "zone.js": "^0.11.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.3.11",
-    "@angular-eslint/eslint-plugin": "^16.0.3",
-    "@angular-eslint/eslint-plugin-template": "^16.0.3",
-    "@angular-eslint/template-parser": "^16.0.3",
+    "@angular-eslint/eslint-plugin": "^16.3.1",
+    "@angular-eslint/eslint-plugin-template": "^16.3.1",
+    "@angular-eslint/template-parser": "^16.3.1",
     "@angular/cli": "^13.3.11",
-    "@angular/compiler-cli": "^13.3.12",
+    "@angular/compiler-cli": "^13.4.0",
     "@types/jasmine": "~4.3.4",
     "@types/jasminewd2": "~2.0.10",
-    "@types/webpack-env": "^1.18.1",
-    "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0",
-    "eslint": "^8.43.0",
-    "eslint-config-prettier": "^8.8.0",
+    "@types/webpack-env": "^1.18.4",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
@@ -64,5 +64,10 @@
     "karma-junit-reporter": "^2.0.1",
     "prettier": "^2.8.8",
     "typescript": "~4.6.4"
+  },
+  "overrides": {
+    "postcss": "^8.4.38",
+    "semver": "^7.6.0",
+    "webpack-dev-middleware": "^5.3.4"
   }
 }
