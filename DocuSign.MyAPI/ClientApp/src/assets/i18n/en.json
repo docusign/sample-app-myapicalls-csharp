@@ -4,14 +4,14 @@
   "GITHUB_LINK": "https://github.com/docusign/sample-app-myapicalls-csharp",
   "LOGIN": "Log in",
   "LOGOUT": "Log out",
-  "LOGIN_TEXT": "To execute the scenario, you must log in with your DocuSign developer account.",
+  "LOGIN_TEXT": "To execute the scenario, you must log in with your Docusign developer account.",
   "CREATE_ACCOUNT": "Create account",
-  "SITE_TITLE": "Discover DocuSign API Calls",
-  "SITE_DESCRIPTION": "Discover the power of DocuSign APIs. Experiment with common API calls in an interactive environment that lets you walk through the call parameters and examine the response.",
+  "SITE_TITLE": "Discover Docusign API Calls",
+  "SITE_DESCRIPTION": "Discover the power of Docusign APIs. Experiment with common API calls in an interactive environment that lets you walk through the call parameters and examine the response.",
   "FOOTER_TITLE": "Can’t find the API you’re looking for?",
   "FOOTER_LINK": "https://developers.docusign.com/",
-  "FOOTER_LINK_TEXT": "Visit DocuSign Developer Center",
-  "COPYRIGHT": "© 2023 DocuSign Inc.",
+  "FOOTER_LINK_TEXT": "Visit Docusign Developer Center",
+  "COPYRIGHT": "© 2024 Docusign Inc.",
   "TRY_SCENARIO": "Try scenario",
   "CLEAR_ALL": "Clear all",
   "SELECTED_SCENARIOS": "Selected {{ value }} scenarios",
@@ -24,7 +24,7 @@
 
   "FILTER": {
     "AREA": "By API call category",
-    "CATEGORY": "By DocuSign API",
+    "CATEGORY": "By Docusign API",
     "VIEW_MORE": "View more",
     "VIEW_LESS": "View less"
   },
@@ -57,7 +57,7 @@
     "STEP": {
       "ENDPOINT_TEXT": "The API request is sent to the following endpoint:",
       "DOCUMENTATION_TEXT": "For more information about this API call, see the",
-      "DOCUMENTATION_LINK": "DocuSign API Documentation",
+      "DOCUMENTATION_LINK": "Docusign API Documentation",
       "NEXT": "Next step",
       "DONT_SHOW_CALLS": "Execute without logging API call execution",
       "REQUEST_BODY": "Request body",
