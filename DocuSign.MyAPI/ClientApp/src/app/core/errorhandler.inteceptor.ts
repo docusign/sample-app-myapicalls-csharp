@@ -40,10 +40,20 @@ export class ErrorHanlderInterceptor implements HttpInterceptor {
           } else if (error.status === 401) {
             this.translateService.get('ERRORS.401').subscribe((res: string) => {
               let snackBarRef = this.notificationService.showInfo(res);
-
               snackBarRef.afterDismissed().subscribe(() => {
-                window.location.href =
-                  '/account/login?returnUrl=' + this.router.url;
+                const allowedHosts = ['myapicalls.sampleapps.docusign.com', 'myapicalls-t.sampleapps.docusign.com']; // Add allowed hostnames here
+                let returnUrl = this.router.url;
+
+                try {
+                  const url = new URL(returnUrl, window.location.origin);
+                  if (!allowedHosts.includes(url.hostname)) {
+                    returnUrl = '/'; // fallback to home if not allowed
+                  }
+                } catch {
+                  returnUrl = '/';
+                }
+
+                window.location.href = `/account/login?returnUrl=${encodeURIComponent(returnUrl)}`;
               });
             });
           }
