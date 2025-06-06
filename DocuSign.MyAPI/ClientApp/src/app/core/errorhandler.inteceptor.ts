@@ -43,7 +43,7 @@ export class ErrorHanlderInterceptor implements HttpInterceptor {
               snackBarRef.afterDismissed().subscribe(() => {
                 const allowedHosts = ['myapicalls.sampleapps.docusign.com', 'myapicalls-t.sampleapps.docusign.com']; // Add allowed hostnames here
                 let returnUrl = this.router.url;
-
+                console.log('returnUrl:', returnUrl); // This will show in the browser console
                 try {
                   const url = new URL(returnUrl, window.location.origin);
                   if (!allowedHosts.includes(url.hostname)) {
