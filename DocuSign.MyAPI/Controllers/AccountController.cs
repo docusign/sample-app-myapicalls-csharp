@@ -27,6 +27,11 @@ namespace DocuSign.MyAPI.Controllers
         [Route("login")]
         public IActionResult Login(string returnUrl = "/")
         {
+            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+            {
+                returnUrl = "/";
+            }
+            
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl, AllowRefresh = true });
         }
 
