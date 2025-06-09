@@ -42,8 +42,13 @@ export class ErrorHanlderInterceptor implements HttpInterceptor {
               let snackBarRef = this.notificationService.showInfo(res);
 
               snackBarRef.afterDismissed().subscribe(() => {
+                let returnUrl = this.router.url;
+                // Only allow relative paths
+                if (!returnUrl.startsWith('/')) {
+                  returnUrl = '/';
+                }
                 window.location.href =
-                  '/account/login?returnUrl=' + this.router.url;
+                  '/account/login?returnUrl=' + returnUrl;
               });
             });
           }

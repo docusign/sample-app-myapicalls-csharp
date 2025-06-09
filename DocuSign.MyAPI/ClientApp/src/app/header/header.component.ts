@@ -19,7 +19,13 @@ export class AppHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.url = this.router.url;
+        let currentUrl = this.router.url;
+        // Only allow relative paths
+        if (currentUrl.startsWith('/')) {
+          this.url = currentUrl;
+        } else {
+          this.url = '/';
+        }
       }
     });
   }
