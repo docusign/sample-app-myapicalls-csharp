@@ -15,7 +15,7 @@ RUN dotnet build "DocuSign.MyAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN apt-get update -yq && apt install -y curl
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_23.x | bash -
 RUN apt-get install -y nodejs
 RUN dotnet publish "DocuSign.MyAPI.csproj" -c Release -o /app/publish
 
