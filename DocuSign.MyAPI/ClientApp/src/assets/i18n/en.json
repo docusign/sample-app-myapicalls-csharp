@@ -7,7 +7,7 @@
   "LOGIN_TEXT": "To execute the scenario, you must log in with your Docusign developer account.",
   "CREATE_ACCOUNT": "Create account",
   "SITE_TITLE": "Discover Docusign API Calls",
-  "SITE_DESCRIPTION": "Discover the power of Docusign APIs. Experiment with common API calls in an interactive environment that lets you walk through the call parameters and examine the response.",
+  "SITE_DESCRIPTION": "Discover the power of Docusign APIs. Experiment with common API calls in an interactive environment that uses authorization code grant (ACG) authentication, walking you through the call parameters and letting you examine the response.",
   "FOOTER_TITLE": "Can’t find the API you’re looking for?",
   "FOOTER_LINK": "https://developers.docusign.com/",
   "FOOTER_LINK_TEXT": "Visit Docusign Developer Center",
