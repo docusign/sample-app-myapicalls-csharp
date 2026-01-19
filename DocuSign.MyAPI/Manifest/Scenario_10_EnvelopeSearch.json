@@ -130,54 +130,66 @@
         },
         {
           "name": "envelopeStatus",
-          "type": "string",
-          "defaultValue": "delivered,sent",
+          "type": "multiSelect",
+          "defaultValue": "",
           "required": false,
           "requestParameterType": "path",
           "requestParameterPath": "envelopeStatus",
           "title": "Envelope status",
-          "note": "One or more <a href = \"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/status-codes/#envelope-status-code-descriptions\" target = \"_blank\">envelope statuses</a> to filter by. To include envelopes in more than one status, enter a list of statuses separated by commas.<br/><strong>Note:</strong> If you filter by statuses other than <code>delivered</code> or <code>sent</code>, the search can return envelopes that are not in a valid status to resend. This may cause the request in step 3 to fail."
-        },
-        {
-          "name": "startPosition",
-          "type": "string",
-          "defaultValue": "",
-          "required": false,
-          "requestParameterType": "path",
-          "requestParameterPath": "startPosition",
-          "title": "Start position",
-          "note": "Enter a non-zero value in this filter to reduce the number of envelopes returned by the search. For example, if 100 envelopes match the other filter criteria, entering 10 for this value causes the search to omit the first 10 envelopes from the results."
-        },
-        {
-          "name": "count",
-          "type": "string",
-          "defaultValue": "",
-          "required": false,
-          "requestParameterType": "path",
-          "requestParameterPath": "count",
-          "title": "Count",
-          "note": "Enter a value in this filter to set the maximum number of envelopes to return in the search results."
-        },
-        {
-          "name": "include",
-          "type": "select",
-          "defaultValue": "",
-          "required": false,
-          "requestParameterType": "path",
-          "requestParameterPath": "include",
-          "title": "Include",
-          "note": "Select a value for the <code>include</code> query parameter to specify additional information to include about envelopes in the search results. See <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> for details about the information each option returns.<br/><strong>Note:</strong> Although this field only allows the selection of a single value, the <code>include</code> query parameter accepts a comma-delimited list of values.",
+          "note": "A comma-delimited list of envelope statuses",
           "options": {
-            "attachments": "attachments",
-            "custom_fields": "custom_fields",
-            "documents": "documents",
-            "extensions": "extensions",
-            "folders": "folders",
-            "recipients": "recipients",
-            "payment_tabs": "payment_tabs",
-            "powerform": "powerform"
+            "completed": "completed",
+            "created": "created",
+            "declined": "declined",
+            "deleted": "deleted",
+            "delivered": "delivered",
+            "processing": "processing",
+            "sent": "sent",
+            "signed": "signed",
+            "timedout": "timedout",
+            "voided": "voided"
           }
-        }
+          },
+          {
+            "name": "startPosition",
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "requestParameterType": "path",
+            "requestParameterPath": "startPosition",
+            "title": "Start position",
+            "note": "Enter a non-zero value in this filter to reduce the number of envelopes returned by the search. For example, if 100 envelopes match the other filter criteria, entering 10 for this value causes the search to omit the first 10 envelopes from the results."
+          },
+          {
+            "name": "count",
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "requestParameterType": "path",
+            "requestParameterPath": "count",
+            "title": "Count",
+            "note": "Enter a value in this filter to set the maximum number of envelopes to return in the search results."
+          },
+          {
+            "name": "include",
+            "type": "select",
+            "defaultValue": "",
+            "required": false,
+            "requestParameterType": "path",
+            "requestParameterPath": "include",
+            "title": "Include",
+            "note": "Select a value for the <code>include</code> query parameter to specify additional information to include about envelopes in the search results. See <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> for details about the information each option returns.<br/><strong>Note:</strong> Although this field only allows the selection of a single value, the <code>include</code> query parameter accepts a comma-delimited list of values.",
+            "options": {
+              "attachments": "attachments",
+              "custom_fields": "custom_fields",
+              "documents": "documents",
+              "extensions": "extensions",
+              "folders": "folders",
+              "recipients": "recipients",
+              "payment_tabs": "payment_tabs",
+              "powerform": "powerform"
+            }
+          }
       ],
       "request": {
         "host": "https://demo.docusign.net",
