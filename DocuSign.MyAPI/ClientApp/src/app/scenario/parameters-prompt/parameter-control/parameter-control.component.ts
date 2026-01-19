@@ -150,19 +150,4 @@ export class ParameterControlComponent implements OnInit {
       value: this.fileValue,
     });
   }
-
-  hasSelection(controlName: string): boolean {
-    const control = this.form?.get(controlName);
-    const value = control?.value;
-
-    return value !== null && value !== undefined && value !== '';
-  }
-
-  clearSelection(controlName: string): void {
-    const control = this.form?.get(controlName);
-    if (!control) return;
-
-    // Clears the mat-select value
-    control.setValue(null);
-  }
 }
