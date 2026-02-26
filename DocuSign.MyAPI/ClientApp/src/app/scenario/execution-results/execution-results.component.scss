@@ -3,3 +3,9 @@
 table {
   width: 100%;
 }
+
+.results-table {
+  .mat-row {
+    vertical-align: top;
+  }
+}

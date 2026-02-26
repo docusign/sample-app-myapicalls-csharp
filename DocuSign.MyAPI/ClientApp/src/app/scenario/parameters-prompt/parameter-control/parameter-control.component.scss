@@ -65,4 +65,10 @@
   &__input {
     flex: 1;
   }
+
+  &__clear_selection {
+    color: $clear-selection-color;
+    font-size: 12px;
+    padding-left: 0;
+  }
 }

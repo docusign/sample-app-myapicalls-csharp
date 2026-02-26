@@ -66,9 +66,20 @@
 }
 
 .endpoint {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  align-items: start;
+
   .label {
     margin-right: map-get($spacers, 2);
     text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  strong {
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
 }
 .url {

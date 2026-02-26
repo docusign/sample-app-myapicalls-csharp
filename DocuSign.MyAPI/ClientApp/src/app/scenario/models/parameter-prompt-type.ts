@@ -3,5 +3,6 @@ export enum ParameterPromptType {
   file = 'file',
   email = 'email',
   select = 'select',
+  multiSelect = 'multiSelect',
   text = 'text',
 }

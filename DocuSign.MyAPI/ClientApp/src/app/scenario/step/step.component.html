@@ -30,7 +30,7 @@
       </p>
       <p class="endpoint">
         <span class="label label__primary">{{ stepInfo.method }}</span>
-        <strong>{{ apiUrl }}</strong>
+        <strong [innerHTML]="apiUrl | wrapApiUrl"></strong>
       </p>
     </div>
 

@@ -30,8 +30,7 @@ import { ParameterControlComponent } from './parameter-control/parameter-control
   styleUrls: ['./parameters-prompt.component.scss'],
 })
 export class ParametersPromptComponent
-  implements OnInit, AfterViewChecked, OnChanges
-{
+  implements OnInit, AfterViewChecked, OnChanges {
   @Input() parameterPrompts: IParameterPrompt[] = [];
   @Input() submitCallback!: (args: any) => void;
   @Input() scope: string = '';
@@ -47,7 +46,7 @@ export class ParametersPromptComponent
     private fb: FormBuilder,
     @Inject(AccountService) private accountService: AccountService,
     private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   get canExecute() {
     return this.form.valid && this.isUserLoggedIn();
@@ -87,18 +86,27 @@ export class ParametersPromptComponent
     if (this.scope === 'Step') {
       if (this.parameterPrompts.length > 0) {
         var formData = this.form.controls.parametersPrompts as FormArray;
-        this.submitCallback((formData.at(0) as FormGroup).getRawValue());
+        this.submitCallback(this.convertMultiselectValues((formData.at(0) as FormGroup).getRawValue()));
       } else {
         this.submitCallback(null);
       }
     } else {
-      this.submitCallback(
-        (this.form.controls.parametersPrompts as FormArray).getRawValue()
-      );
+      const rawValues = (this.form.controls.parametersPrompts as FormArray).getRawValue();
+      this.submitCallback(rawValues.map((group: any) => this.convertMultiselectValues(group)));
     }
     this.paramControls.forEach((control) => {
       control.notifyChange();
     });
+  }
+
+  convertMultiselectValues(formValues: any): any {
+    const result = { ...formValues };
+    this.parameterPrompts.forEach((p) => {
+      if (p.type === ParameterPromptType.multiSelect && Array.isArray(result[p.name])) {
+        result[p.name] = result[p.name].join(',');
+      }
+    });
+    return result;
   }
 
   toFormGroup(parameterPrompts: IParameterPrompt[]) {
@@ -113,15 +121,16 @@ export class ParametersPromptComponent
 
       prompt.parameters.forEach((p: IParameterPrompt) => {
         var defaultValue =
-          p.type == ParameterPromptType.file ? '' : p.defaultValue;
+          p.type == ParameterPromptType.file ? '' :
+            p.type == ParameterPromptType.multiSelect ? [] : p.defaultValue;
 
         group[p.name] = p.required
           ? p.type == ParameterPromptType.email
             ? new FormControl(defaultValue, [
-                Validators.required,
-                Validators.email,
-                Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]+$'),
-              ])
+              Validators.required,
+              Validators.email,
+              Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]+$'),
+            ])
             : new FormControl(defaultValue, Validators.required)
           : new FormControl(defaultValue);
         if (this.scope === 'Scenario') {

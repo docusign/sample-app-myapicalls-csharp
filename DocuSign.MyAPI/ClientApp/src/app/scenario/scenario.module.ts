@@ -16,7 +16,7 @@ import { ParameterControlComponent } from './parameters-prompt/parameter-control
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ExecuteScenarioComponent } from './execute-scenario/execute-scenario.component';
-import { StepComponent } from './step/step.component';
+import { StepComponent, WrapApiUrlPipe } from './step/step.component';
 import { ScenarioService } from './services/scenario-service';
 import { ScenarioServiceStub } from './services/scenario-service.stub';
 import { LoginPromptComponent } from './login-prompt/login-prompt.component';
@@ -39,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     LoginPromptComponent,
     ExecutionResultsComponent,
     BodyPreviewComponent,
+    WrapApiUrlPipe,
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,8 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  Pipe,
+  PipeTransform,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ScenarioService } from '../services/scenario-service';
@@ -326,5 +328,15 @@ export class StepComponent implements OnInit {
 
   get isLoggedIn(): Observable<boolean> {
     return this.accountService.isLoggedIn();
+  }
+}
+
+@Pipe({ name: 'wrapApiUrl' })
+export class WrapApiUrlPipe implements PipeTransform {
+  transform(value: string | null | undefined): string {
+    if (!value) return '';
+
+    // Add break AFTER these symbols
+    return value.replace(/([,&=])/g, '$1<wbr>');
   }
 }
