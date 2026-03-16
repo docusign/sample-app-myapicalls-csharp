@@ -96,7 +96,7 @@
     {
       "name": "EnvelopeSearch_Step_2",
       "title": "Step 2: Search for an envelope",
-      "description": "<p>To execute this API call:</p><ol><li>Supply parameter values below. As you enter or change values, the query parameters are updated in the <code>GET</code> request shown below. For more information about any of the query parameters, see <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a>.</li><li>Select <strong>Execute</strong>.</li><li>To see how changes to the search filters affect the results, you can change parameter values and select <strong>Execute</strong> after each change to see the updated search results.</li><li>Select <strong>Next step</strong> to proceed to the next call.</li></ol>",
+      "description": "<p>To execute this API call:</p><ol><li>Supply parameter values below. As you enter or change values, the query parameters are updated in the <code>GET</code> request shown below. For more information about any of the query parameters, see <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a>.</li><li>Select <strong>Execute</strong>.</li><li>To see how changes to the search filters affect the results, you can change parameter values and select <strong>Execute</strong> after each change to see the updated search results.</li><li>Select <strong>Next step</strong> to proceed to the next call, which resends the first envelope returned by the search. The resend will succeed only if the envelope is in <strong>delivered</strong> or <strong>sent</strong> status.</li></ol>",
       "parametersPrompts": [
         {
           "name": "fromDate",
@@ -172,13 +172,13 @@
           },
           {
             "name": "include",
-            "type": "select",
+            "type": "multiSelect",
             "defaultValue": "",
             "required": false,
             "requestParameterType": "path",
             "requestParameterPath": "include",
             "title": "Include",
-            "note": "Select a value for the <code>include</code> query parameter to specify additional information to include about envelopes in the search results. See <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> for details about the information each option returns.<br/><strong>Note:</strong> Although this field only allows the selection of a single value, the <code>include</code> query parameter accepts a comma-delimited list of values.",
+            "note": "Select one or more values to specify additional envelope information to include in the search results. See <a href = \"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/\" target = \"_blank\">Envelopes:listStatusChanges</a> for details about the information each option returns.",
             "options": {
               "attachments": "attachments",
               "custom_fields": "custom_fields",
@@ -252,7 +252,7 @@
     {
       "name": "EnvelopeSearch_Step_3",
       "title": "Step 3: Resend an envelope",
-      "description": "<p>To execute this API call, select <strong>Execute</strong>.</p><p><strong>Note:</strong> If the previous request did not return any envelopes, this message will be displayed when you try to execute this request: <strong>Unable to resend envelope. The Envelopes:listStatusChanges request did not return any envelopes.</strong></p>",
+      "description": "<p>To execute this API call, select <strong>Execute</strong>.</p><p><strong>Note:</strong> This request resends the first envelope returned by the search in the previous step. The resend will succeed only if the envelope is in <strong>delivered</strong> or <strong>sent</strong> status. If the previous request did not return any envelopes, this message will be displayed when you try to execute this request: <strong>Unable to resend envelope. The Envelopes:listStatusChanges request did not return any envelopes.</strong></p>",
       "parametersPrompts": [],
       "request": {
         "host": "https://demo.docusign.net",
