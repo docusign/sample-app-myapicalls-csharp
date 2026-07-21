@@ -1,5 +1,5 @@
 # Introduction 
-MyAPICalls is a sample app that enables users to walk through the process of executing Docuxign API calls and review:
+MyAPICalls is a sample app that enables users to walk through the process of executing Docusign API calls and review:
 * The JSON request body structure
 * The values of request properties
 * The API request that’s sent to the Docusign platform
