@@ -11,6 +11,9 @@ Each scenario in the sample app illustrates a different use case, such as creati
 MyAPICalls includes the option to execute scenarios multiple times with unique data for each execution. This feature is useful for quickly populating a developer account with test data.
 
 
+# Prerequisites
+* [Node.js](https://nodejs.org/) `^22.23.4`, `^24.22.1`, `^26.12.1` or higher.
+
 # Hosted instance
 To run the hosted instance of MyAPICalls, visit https://myapicalls.sampleapps.docusign.com/.
 
