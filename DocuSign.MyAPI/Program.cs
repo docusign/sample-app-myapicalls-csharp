@@ -34,6 +34,8 @@ builder.Services.AddScoped<IRandomGenerator, RandomGenerator>();
 
 builder.Services.AddAutoMapper(System.AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMemoryCache();
+var allowInsecureLocalCookies = builder.Configuration.GetValue<bool>("DocuSign:AllowInsecureLocalCookies");
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -73,6 +75,12 @@ builder.Services.AddAuthentication(options =>
 
     options.SaveTokens = true;
 
+    if (allowInsecureLocalCookies)
+    {
+        options.CorrelationCookie.SameSite = SameSiteMode.Lax;
+        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    }
+
     options.Events = new OAuthEvents
     {
         OnCreatingTicket = async context =>
@@ -98,7 +106,7 @@ builder.Services.AddAuthentication(options =>
     config.Cookie.Name = "UserLoginCookie";
     config.Cookie.HttpOnly = true;
     config.Cookie.SameSite = SameSiteMode.Lax;
-    config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    config.Cookie.SecurePolicy = allowInsecureLocalCookies ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
     config.LoginPath = "/Account/Login";
     config.SlidingExpiration = true;
     config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
